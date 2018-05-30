@@ -113,7 +113,7 @@
 							</li>
 
 							<li>
-								<a style="font-size: 23px;" href="about.html">על אודות</a>
+								<a style="font-size: 23px;" href="{{url_for('about')}}">על אודות</a>
 							</li>
 
 							<li class="active-menu">
@@ -208,7 +208,7 @@
 				</li>
 
 				<li>
-					<a style="font-size: 23px;" href="about.html">על אודות</a>
+					<a style="font-size: 23px;" href="{{url_for('about')}}">על אודות</a>
 				</li>
 
 				<li>
@@ -597,13 +597,13 @@
 								</div>
 							</div>
 						</div>
-				{% endfor %}
+					{% endfor %}
 					</div>
 			
-			{% else %}
-				<h3 align="center" dir="rtl"> אין מוצרים ברגע הזה. נא לחזור אלינו עוד כמה שעות.</h3>
-			{% endif %}
-			
+				{% else %}
+					<h3 align="center" dir="rtl"> אין מוצרים ברגע הזה. נא לחזור אלינו עוד כמה שעות.</h3>
+				{% endif %}
+				
 
 			<!-- Load more -->
 <!-- 			<div class="flex-c-m flex-w w-full p-t-45">
