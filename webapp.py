@@ -79,7 +79,7 @@ def loadMore(number):
 	loadMore = False
 
 	products=[]
-	if len(productsList) >= 8*number:
+	if len(productsList) >= (8 * int(number)) :
 		for i in range(8*number) :
 				products.append(productsList[i])
 	else:
