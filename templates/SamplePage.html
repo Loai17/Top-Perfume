@@ -47,7 +47,7 @@
     </style>
 
 </head>
-<body class="animsition">
+<body class="animsition" dir="rtl">
 	
 	<!-- Header -->
 	<header>
@@ -85,15 +85,32 @@
 					
 
 					<!-- Logo desktop -->		
-					<!-- <a href="#" class="logo">
+			<!-- 		<a href="#" class="logo">
 						<img src="{{url_for('static',filename='images/icons/logo-01.png')}}" alt="IMG-LOGO">
 					</a> -->
-
-
+					<!-- Menu desktop -->
+					<div class="menu-desktop">
+						<ul class="main-menu">
+							<li class="active-menu">
+								<a style="font-size: 23px;" href="">דף הבית</a>
+							</li>
+							<li>
+								<a style="font-size: 23px;" href="{{url_for('shop')}}">חנות</a> 
+									<ul class="sub-menu">
+										<li>Brand</li>
+									</ul>
+							</li>
+							<li>
+								<a style="font-size: 23px;" href="{{url_for('about')}}">על אודות</a>
+							</li>
+							<li>
+								<a style="font-size: 23px;" class="js-scroll-trigger zmdi" href="#contact">צור קשר</a>
+							</li>
+						</ul>
+					</div>
 
 					<!-- Icon header -->
-					<div class="wrap-icon-header flex-w flex-l-m">
-					<h3 style="color: black;"> Top Perfume </h3>	
+					<div class="wrap-icon-header flex-w flex-r-m">
 						<a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0"> <!-- How many favorite items are saved -->
 							<i class="zmdi zmdi-favorite-outline"></i>
 						</a>
@@ -105,32 +122,10 @@
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
 							<i class="zmdi zmdi-search"></i>
 						</div>
+					<h3 style="color: black;"> Top Perfume </h3>	
+
 					</div>
 
-					<!-- Menu desktop -->
-					<div class="menu-desktop">
-						<ul class="main-menu">
-
-							<li>
-								<a style="font-size: 23px;" class="js-scroll-trigger zmdi" href="#contact">צור קשר</a>
-							</li>
-
-							<li>
-								<a style="font-size: 23px;" href="about.html">על אודות</a>
-							</li>
-
-							<li>
-								<a style="font-size: 23px;" href="product.html">חנות</a> 
-								<ul class="sub-menu">
-									<li>Brand</li>
-								</ul>
-							</li>
-							
-							<li class="active-menu">
-								<a style="font-size: 23px;" href="index.html">דף הבית</a>
-							</li>
-						</ul>
-					</div>	
 				</nav>
 			</div>	
 		</div>
@@ -168,11 +163,11 @@
 
 		<!-- Menu Mobile -->
 		<div class="menu-mobile">
-			<ul class="topbar-mobile">
+<!-- 			<ul class="topbar-mobile">
 				<li>
 					<div class="left-top-bar">
-<!-- 						Free shipping for standard order over $100
- -->					</div>
+						Free shipping for standard order over $100
+					</div>
 				</li>
 
 				<li>
@@ -194,31 +189,29 @@
 						</a>
 					</div>
 				</li>
-			</ul>
+			</ul> -->
 
 			<ul class="main-menu-m">
 				<li>
-					<a style="font-size: 23px;" href="index.html">דף הבית</a>
-<!-- 					<ul class="sub-menu-m">
-						<li><a href="index.html">Homepage 1</a></li>
-						<li><a href="home-02.html">Homepage 2</a></li>
-						<li><a href="home-03.html">Homepage 3</a></li>
-					</ul> -->
-		<!-- 			<span class="arrow-main-menu-m">
+					<a style="font-size: 23px;" href="{{url_for('home')}}">דף הבית</a>
+					<ul class="sub-menu-m">
+						<li><a href="">Brand</a></li>
+					</ul>
+					<span class="arrow-main-menu-m">
 						<i class="fa fa-angle-right" aria-hidden="true"></i>
-					</span> -->
+					</span>
 				</li>
 
 				<li>
-					<a style="font-size: 23px;" href="product.html">חנות</a>
+					<a style="font-size: 23px;" href="{{url_for('shop')}}">חנות</a>
 				</li>
 
 				<li>
-					<a style="font-size: 23px;" href="about.html">על אודות</a>
+					<a style="font-size: 23px;" href="{{url_for('about')}}">על אודות</a>
 				</li>
 
 				<li>
-					<a style="font-size: 23px;" href="contact.html">צור קשר</a>
+					<a style="font-size: 23px;" href="#contact">צור קשר</a>
 				</li>
 			</ul>
 		</div>
@@ -241,7 +234,7 @@
 	</header>
 
 	<!-- Cart -->
-	<div class="wrap-header-cart js-panel-cart">
+	<div class="wrap-header-cart js-panel-cart" dir="ltr">
 		<div class="s-full js-hide-cart"></div>
 
 		<div class="header-cart flex-col-l p-l-65 p-r-25">
@@ -395,7 +388,7 @@
 
 			<div class="col-sm-6 col-lg-4 p-b-50">
 				<h4 class="stext-301 cl0 p-b-30">
-						!אנחנו כאן
+						אנחנו כאן!
 					</h4>
 					<div id="map"></div>	
 				   <script>
