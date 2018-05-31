@@ -114,5 +114,30 @@ def shop():
 def about():
 	return render_template('about.html'	)
 
+
+
+
+
+
+
+
+
+# Admin Portal
+@app.route('/admin',methods=['GET','POST'])
+def adminSignin():
+	if request.method == 'POST':
+		username = request.form["username"]
+		password = request.form["password"]
+		
+		adminCheck=session.query(Admin).filter_by(username=username).first()
+
+		if(adminCheck != None and adminCheck.password==password):
+			# Logged in successfully
+			return render_template('admin.html')
+		else:
+			return redirect(url_for('adminSignin'))
+	else:
+		return render_template('adminSignin.html')
+
 if __name__ == '__main__':
 	app.run(debug=True)
