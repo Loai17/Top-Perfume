@@ -57,6 +57,6 @@ Base.metadata.create_all(engine)
 # session.add(chris)
 
 
-admin = Admin(name="Rami Naddaf",username="rami",password="123123")
-session.add(admin)
-session.commit()
+# admin = Admin(name="Rami Naddaf",username="rami",password="123123")
+# session.add(admin)
+# session.commit()
