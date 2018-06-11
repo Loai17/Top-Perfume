@@ -56,7 +56,6 @@ Base.metadata.create_all(engine)
 # chris = ShopItems(name = "La Vie En Rose",gender="men",brand="Brandd",description="Sexy af",price="200",thumbnail="None",images="none")
 # session.add(chris)
 
-
 # admin = Admin(name="Rami Naddaf",username="rami",password="123123")
 # session.add(admin)
 # session.commit()

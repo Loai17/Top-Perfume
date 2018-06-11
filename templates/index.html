@@ -96,9 +96,13 @@
 							</li>
 							<li>
 								<a style="font-size: 23px;" href="{{url_for('shop')}}">חנות</a> 
-									<ul class="sub-menu">
-										<li>Brand</li>
-									</ul>
+								<ul class="sub-menu" dir="ltr" style="left: 0px;right: 0px;">
+								{% if brands %}					
+									{% for brand in brands %}
+										<li style="text-align: center;">{{brand}}</li>
+									{% endfor %}
+								{% endif %}
+								</ul>
 							</li>
 							<li>
 								<a style="font-size: 23px;" href="{{url_for('about')}}">על אודות</a>
@@ -193,15 +197,20 @@
 
 			<ul class="main-menu-m">
 				<li>
-					<a style="font-size: 23px;" href="index.html">דף הבית</a>
-<!-- 					<ul class="sub-menu-m">
-						<li><a href="index.html">Homepage 1</a></li>
+					<a style="font-size: 23px;" href="">דף הבית</a>
+					<ul class="sub-menu-m">
+						{% if brands %}							
+							{% for brand in brands %}
+								<li>{{brand}}</li>
+							{% endfor %}
+						{% endif %}
+<!-- 						<li><a href="index.html">Homepage 1</a></li>
 						<li><a href="home-02.html">Homepage 2</a></li>
-						<li><a href="home-03.html">Homepage 3</a></li>
-					</ul> -->
-		<!-- 			<span class="arrow-main-menu-m">
+						<li><a href="home-03.html">Homepage 3</a></li> -->
+					</ul>
+					<span class="arrow-main-menu-m">
 						<i class="fa fa-angle-right" aria-hidden="true"></i>
-					</span> -->
+					</span>
 				</li>
 
 				<li>
@@ -751,7 +760,7 @@
 
 							<div class="block2-txt flex-w flex-t p-t-14">
 								<div class="block2-txt-child1 flex-col-l ">
-									<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+									<a href="{{url_for('product' , id=product.id)}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 										{{product.name}}
 									</a>
 
@@ -816,7 +825,7 @@
 					<h4 class="stext-301 cl0 p-b-30">
 						צור קשר
 					</h4>
-					<form>
+					<form method="POST" action="{{url_for('home')}}">
 						<div class="wrap-input1 w-full p-b-4">
 							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="name" placeholder="Name">
 							<div class="focus-input1 trans-04"></div>
@@ -863,7 +872,7 @@
 						עלון
 					</h4>
 
-					<form>
+					<form method="POST" action="{{url_for('subscribe')}}">
 						<div class="wrap-input1 w-full p-b-4">
 							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email" placeholder="email@example.com">
 							<div class="focus-input1 trans-04"></div>
@@ -881,14 +890,14 @@
 					</form>
 				</div>
 
-			<div class="col-sm-6 col-lg-4 p-b-50">
+			<div class="col-sm-6 col-lg-4 p-b-50" dir="ltr">
 				<h4 class="stext-301 cl0 p-b-30">
 						אנחנו כאן!
 					</h4>
 					<div id="map"></div>	
 				   <script>
 				      function initMap() {
-				        var uluru = {lat: -25.363, lng: 131.044};
+				        var uluru = {lat: 32.709611, lng: 35.297253};
 				        var map = new google.maps.Map(document.getElementById('map'), {
 				          zoom: 4,
 				          center: uluru

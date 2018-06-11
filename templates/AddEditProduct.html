@@ -44,27 +44,84 @@
 		.a {
 			font-size: 100px
 		}
+	</style>
 
-		table.scroll tbody {
-		    height: 100px;
-		    overflow-y: auto;
-		    overflow-x: hidden;
-		}
 
-		table.scroll, th, td {
-    		border-bottom: 2px black;
-    		padding-right: 5px;
-    		padding-left: 5px;
-    		padding-top: 2.5px;
-    		padding-bottom: 2.5px;
-		}
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<style type="text/css">
+.form-style-8{
+    font-family: 'Open Sans Condensed', arial, sans;
+    width: 500px;
+    padding: 30px;
+    background: #FFFFFF;
+    margin: 50px auto;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+    -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+    -webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.22);
 
-		table.scroll tbody tr:hover td {
-		  background-color: #FFEFC6;
-		  cursor: pointer;
-		}
-
-    </style>
+}
+/*.form-style-8 h2{
+    background: #4D4D4D;
+    text-transform: uppercase;
+    font-family: 'Open Sans Condensed', sans-serif;
+    color: #797979;
+    font-size: 18px;
+    font-weight: 100;
+    padding: 20px;
+    margin: -30px -30px 30px -30px;
+}*/
+.form-style-8 input[type="text"],
+.form-style-8 input[type="date"],
+.form-style-8 input[type="datetime"],
+.form-style-8 input[type="email"],
+.form-style-8 input[type="number"],
+.form-style-8 input[type="search"],
+.form-style-8 input[type="time"],
+.form-style-8 input[type="url"],
+.form-style-8 input[type="password"],
+.form-style-8 textarea,
+.form-style-8 select 
+{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    outline: none;
+    display: block;
+    width: 100%;
+    padding: 7px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    background: transparent;
+    margin-bottom: 10px;
+    font: 16px Arial, Helvetica, sans-serif;
+    height: 45px;
+}
+.form-style-8 textarea{
+    resize:none;
+    overflow: hidden;
+}
+.form-style-8 input[type="button"], 
+.form-style-8 input[type="submit"]{
+    -moz-box-shadow: inset 0px 1px 0px 0px #45D6D6;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #45D6D6;
+    box-shadow: inset 0px 1px 0px 0px #45D6D6;
+    background-color: #2CBBBB;
+    border: 1px solid #27A0A0;
+    display: inline-block;
+    cursor: pointer;
+    color: #FFFFFF;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 14px;
+    padding: 8px 18px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.form-style-8 input[type="button"]:hover, 
+.form-style-8 input[type="submit"]:hover {
+    background:linear-gradient(to bottom, #34CACA 5%, #30C9C9 100%);
+    background-color:#34CACA;
+}
+</style>
 
 </head>
 <body class="animsition" dir="rtl">
@@ -339,81 +396,75 @@
 	</div>
 
 	<!-- Body -->
-	<br><br>
-	<h1 align="center"><u>ניהול</u></h1>
-	<br><br>
-	<div align="center">
-		<table class="scroll">		<!-- PRODUCTS TABLE -->
-			<h2 align="center">ניהול מוצרים :</h2>
-	        <tr style="border-bottom: 2px solid black">
-	            <th style="text-align: center;">תמונה</th>
-	            <th style="text-align: center;">שם</th>
-	            <th style="text-align: center;">דירוג</th>
-	            <th style="text-align: center;">מין</th>
-	            <th style="text-align: center;">מחיר</th>
-	        </tr>
-		    <tbody>
-		    	{% if products %}
-		    	{% for product in products %}
-			        <tr style="border-bottom: 1px solid black">
-			            <td>{{product.thumbnail}}</td> <!--Thumbnail-->
-			            <td>  {{product.name}}  </td> <!--Name-->
-			            {% if product.reviews.rating %}
-			            	<td> {{product.reviews.rating}} </td> <!--Rating-->
-			            {% else %}
-			            	<td> None </td>
-			            {% endif %}
-			            <td> {{product.gender}} </td> <!--Gender-->
-			            <td> {{product.price}} </td> <!--Price-->
-			        </tr>
-			    {% endfor %}
-			    {% endif %}
-		    </tbody>
-		</table>
-		<a href="{{url_for('addProduct')}}"> Add </a>
-	</div>
-	<br>
-	<br>
-		<div align="center">
-		<table class="scroll">		<!-- EMAILS NEWSLETTER TABLE -->
-			<h2 align="center">ניהול אי-מיילים :</h2>
-	        <tr style="border-bottom: 2px solid black">
-	            <th style="text-align: center;">אי-מייל</th>
-	            <!-- <th style="text-align: center;">מחוק</th> -->
-	        </tr>
-		    <tbody>
-		    	{% if emails %}
-		    	{% for email in emails %}
-			        <tr style="border-bottom: 1px solid black">
-			            <td>{{email.email}}</td> <!-- Email -->
-			             <!-- Delete button  -->
-					</tr>
-			    {% endfor %}
-			    {% endif %}
-		    </tbody>
-		</table>
-<!-- 		<a href="{{url_for('addProduct')}}"> Add </a>
- -->	</div>
 	<script type="text/javascript">
-		// Change the selector if needed
-		var $table = $('table.scroll'),
-		    $bodyCells = $table.find('tbody tr:first').children(),
-		    colWidth;
-
-		// Adjust the width of thead cells when window resizes
-		$(window).resize(function() {
-		    // Get the tbody columns width array
-		    colWidth = $bodyCells.map(function() {
-		        return $(this).width();
-		    }).get();
-		    
-		    // Set the width of thead columns
-		    $table.find('thead tr').children().each(function(i, v) {
-		        $(v).width(colWidth[i]);
-		    });    
-		}).resize(); // Trigger resize handler
+	//auto expand textarea
+	function adjust_textarea(h) {
+	    h.style.height = "20px";
+	    h.style.height = (h.scrollHeight)+"px";
+	}
 	</script>
+	<br><br><br>
 
+	{% if edit %}
+		{% if product %}
+			<div class="form-style-8" align="center">
+			  <h2>Edit Product</h2>
+			  <form action="{{url_for('editProduct' , id = product.id)}}" method="POST">
+			    <input type="text" name="name" placeholder="Name" value="{{product.name}}" />
+				<!-- Gender -->
+				<label for="gender">Gender:</label>
+				<select id="gender" name="gender">
+				  <option value="men">Men</option>
+				  <option value="women" selected="true">Women</option>
+				</select>
+				<!-- Brands -->
+				<label for="brands">Brands:</label>
+				<select id="brands" name="brand">
+				  <option value="fishkeeping">Fishkeeping</option>
+				  <option value="reading">Reading</option>
+				  <option value="boxing">Boxing</option>
+				  <option value="debate">Debate</option>
+				  <option value="gaming">Gaming</option>
+				  <option value="snooker">Snooker</option>
+				  <option value="other_indoor">Other</option>
+				</select>      
+			    <input type="number" name="price" placeholder="Price" value="{{product.price}}" />
+			    <textarea placeholder="Description" name="description" value="{{product.description}}" onkeyup="adjust_textarea(this)"></textarea>
+			    <input type="submit" value="Submit" />
+			  </form>
+			</div>
+		{% else %}
+			<h2> No Product Available </h2>
+
+		{% endif %}
+	{% else %}
+	<div class="form-style-8" align="center">
+	  <h2>Add Product</h2>
+	  <form action="{{url_for('addProduct')}}" method="POST">
+	    <input type="text" name="name" placeholder="Name" />
+		<!-- Gender -->
+		<label for="gender">Gender:</label>
+		<select id="gender" name="gender">
+		  <option value="men">Men</option>
+		  <option value="women">Women</option>
+		</select>
+		<!-- Brands -->
+		<label for="brands">Brands:</label>
+		<select id="brands" name="brand">
+		  <option value="fishkeeping">Fishkeeping</option>
+		  <option value="reading">Reading</option>
+		  <option value="boxing">Boxing</option>
+		  <option value="debate">Debate</option>
+		  <option value="gaming">Gaming</option>
+		  <option value="snooker">Snooker</option>
+		  <option value="other_indoor">Other</option>
+		</select>      
+	    <input type="number" name="price" placeholder="Price" />
+	    <textarea placeholder="Description" name="description" onkeyup="adjust_textarea(this)"></textarea>
+	    <input type="submit" value="Submit" />
+	  </form>
+	</div>
+	{% endif %}
 	<!-- Footer -->
 	<footer class="bg3 p-t-75 p-b-32" style="background-color: lightgray" id="contact">
 		<div class="container">
