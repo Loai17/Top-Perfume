@@ -342,8 +342,8 @@
 
 	{% if product %}
 	<!-- Product Detail -->
-	<section class="sec-product-detail bg0 p-t-65 p-b-60">
-		<div class="container">
+	<section class="sec-product-detail bg0 p-t-65 p-b-60" >
+		<div class="container"dir="ltr">
 			<div class="row">
 				<div class="col-md-6 col-lg-7 p-b-30">
 					<div class="p-l-25 p-r-30 p-lr-0-lg">
@@ -491,15 +491,15 @@
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
 						<li class="nav-item p-b-10">
-							<a class="nav-link active" data-toggle="tab" href="#description" role="tab">Description</a>
+							<a class="nav-link active" data-toggle="tab" href="#description" role="tab">תיאור</a>
 						</li>
 
 						<li class="nav-item p-b-10">
-							<a class="nav-link" data-toggle="tab" href="#information" role="tab">Additional information</a>
+							<a class="nav-link" data-toggle="tab" href="#information" role="tab">מידע נוסף</a>
 						</li>
 
 						<li class="nav-item p-b-10">
-							<a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews (1)</a>
+							<a class="nav-link" data-toggle="tab" href="#reviews" role="tab">ביקורות (1)</a>
 						</li>
 					</ul>
 
@@ -952,7 +952,7 @@
 					<h4 class="stext-301 cl0 p-b-30">
 						צור קשר
 					</h4>
-					<form>
+					<form method="POST" action="{{url_for('home')}}">
 						<div class="wrap-input1 w-full p-b-4">
 							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="name" placeholder="Name">
 							<div class="focus-input1 trans-04"></div>
@@ -967,6 +967,9 @@
 							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="message" placeholder="Your Message">
 							<div class="focus-input1 trans-04"></div>
 						</div>
+
+						<input type="checkbox" name="agreement" value="Agree" ><font style="font-size: 8px"> I agree to policy.</font><br>
+
 
 						<div class="p-t-18">
 							<button type="submit" class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
@@ -996,28 +999,32 @@
 						עלון
 					</h4>
 
-					<form>
+					<form method="POST" action="{{url_for('subscribe')}}">
 						<div class="wrap-input1 w-full p-b-4">
 							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email" placeholder="email@example.com">
 							<div class="focus-input1 trans-04"></div>
 						</div>
+
+						<input type="checkbox" name="agreement" value="Agree" ><font style="font-size: 8px"> I agree to policy.</font><br>
 
 						<div class="p-t-18">
 							<button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
 								הירשם
 							</button>
 						</div>
+
+
 					</form>
 				</div>
 
-			<div class="col-sm-6 col-lg-4 p-b-50">
+			<div class="col-sm-6 col-lg-4 p-b-50" dir="ltr">
 				<h4 class="stext-301 cl0 p-b-30">
 						אנחנו כאן!
 					</h4>
 					<div id="map"></div>	
 				   <script>
 				      function initMap() {
-				        var uluru = {lat: -25.363, lng: 131.044};
+				        var uluru = {lat: 32.709611, lng: 35.297253};
 				        var map = new google.maps.Map(document.getElementById('map'), {
 				          zoom: 4,
 				          center: uluru

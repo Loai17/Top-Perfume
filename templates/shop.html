@@ -621,7 +621,7 @@
 					<h4 class="stext-301 cl0 p-b-30">
 						צור קשר
 					</h4>
-					<form>
+					<form method="POST" action="{{url_for('home')}}">
 						<div class="wrap-input1 w-full p-b-4">
 							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="name" placeholder="Name">
 							<div class="focus-input1 trans-04"></div>
@@ -636,6 +636,9 @@
 							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="message" placeholder="Your Message">
 							<div class="focus-input1 trans-04"></div>
 						</div>
+
+						<input type="checkbox" name="agreement" value="Agree" ><font style="font-size: 8px"> I agree to policy.</font><br>
+
 
 						<div class="p-t-18">
 							<button type="submit" class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
@@ -665,28 +668,32 @@
 						עלון
 					</h4>
 
-					<form>
+					<form method="POST" action="{{url_for('subscribe')}}">
 						<div class="wrap-input1 w-full p-b-4">
 							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email" placeholder="email@example.com">
 							<div class="focus-input1 trans-04"></div>
 						</div>
+
+						<input type="checkbox" name="agreement" value="Agree" ><font style="font-size: 8px"> I agree to policy.</font><br>
 
 						<div class="p-t-18">
 							<button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
 								הירשם
 							</button>
 						</div>
+
+
 					</form>
 				</div>
 
-			<div class="col-sm-6 col-lg-4 p-b-50">
+			<div class="col-sm-6 col-lg-4 p-b-50" dir="ltr">
 				<h4 class="stext-301 cl0 p-b-30">
 						אנחנו כאן!
 					</h4>
 					<div id="map"></div>	
 				   <script>
 				      function initMap() {
-				        var uluru = {lat: -25.363, lng: 131.044};
+				        var uluru = {lat: 32.709611, lng: 35.297253};
 				        var map = new google.maps.Map(document.getElementById('map'), {
 				          zoom: 4,
 				          center: uluru

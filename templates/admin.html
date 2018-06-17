@@ -340,6 +340,9 @@
 
 	<!-- Body -->
 	<br><br>
+	<h4 style="padding-right: 8%;padding-top: 5%">ברוך שובך, ראמי.</h4>
+	<h4 style="padding-right: 8%;"><a href="{{url_for('logout')}}">להתנתק</a></h4>
+	<br><br>
 	<h1 align="center"><u>ניהול</u></h1>
 	<br><br>
 	<div align="center">
@@ -355,7 +358,7 @@
 		    <tbody>
 		    	{% if products %}
 		    	{% for product in products %}
-			        <tr style="border-bottom: 1px solid black">
+			        <tr style="border-bottom: 1px solid black" class='clickable-row' data-href="{{url_for('editProduct', id = product.id)}}">
 			            <td>{{product.thumbnail}}</td> <!--Thumbnail-->
 			            <td>  {{product.name}}  </td> <!--Name-->
 			            {% if product.reviews.rating %}
@@ -377,6 +380,7 @@
 		<div align="center">
 		<table class="scroll">		<!-- EMAILS NEWSLETTER TABLE -->
 			<h2 align="center">ניהול אי-מיילים :</h2>
+			<a href="{{url_for('copyEmails')}}">העתק כל האי-מיילים</a>
 	        <tr style="border-bottom: 2px solid black">
 	            <th style="text-align: center;">אי-מייל</th>
 	            <!-- <th style="text-align: center;">מחוק</th> -->
@@ -621,6 +625,15 @@
 	</script>
 <!--===============================================================================================-->
 	<script src="{{url_for('static',filename='js/main.js')}}"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript">
+		jQuery(document).ready(function($) {
+		    $(".clickable-row").click(function() {
+		        window.location = $(this).data("href");
+		    });
+		});
+	</script>
+
 
 </body>
 </html>
