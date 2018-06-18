@@ -97,7 +97,11 @@
 							<li class="active-menu">
 								<a style="font-size: 23px;" href="">חנות</a> 
 									<ul class="sub-menu">
-										<li>Brand</li>
+										{% if brands %}							
+											{% for brand in brands %}
+												<li>{{brand}}</li>
+											{% endfor %}
+										{% endif %}
 									</ul>
 							</li>
 							<li>
@@ -191,18 +195,20 @@
 			<ul class="main-menu-m">
 				<li>
 					<a style="font-size: 23px;" href="{{url_for('home')}}">דף הבית</a>
-<!-- 					<ul class="sub-menu-m">
-						<li><a href="index.html">Homepage 1</a></li>
-						<li><a href="home-02.html">Homepage 2</a></li>
-						<li><a href="home-03.html">Homepage 3</a></li>
-					</ul> -->
-		<!-- 			<span class="arrow-main-menu-m">
-						<i class="fa fa-angle-right" aria-hidden="true"></i>
-					</span> -->
 				</li>
 
 				<li>
 					<a style="font-size: 23px;" href="">חנות</a>
+					<ul class="sub-menu-m">
+						{% if brands %}							
+							{% for brand in brands %}
+								<li>{{brand}}</li>
+							{% endfor %}
+						{% endif %}
+					</ul>
+					<span class="arrow-main-menu-m">
+						<i class="fa fa-angle-right" aria-hidden="true"></i>
+					</span>
 				</li>
 
 				<li>
@@ -686,7 +692,7 @@
 					</form>
 				</div>
 
-			<div class="col-sm-6 col-lg-4 p-b-50" dir="ltr">
+			<div class="col-sm-6 col-lg-4 p-b-50">
 				<h4 class="stext-301 cl0 p-b-30">
 						אנחנו כאן!
 					</h4>

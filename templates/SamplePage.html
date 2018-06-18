@@ -97,7 +97,11 @@
 							<li>
 								<a style="font-size: 23px;" href="{{url_for('shop')}}">חנות</a> 
 									<ul class="sub-menu">
-										<li>Brand</li>
+										{% if brands %}					
+											{% for brand in brands %}
+												<li style="text-align: center;">{{brand}}</li>
+											{% endfor %}
+										{% endif %}
 									</ul>
 							</li>
 							<li>
@@ -194,16 +198,20 @@
 			<ul class="main-menu-m">
 				<li>
 					<a style="font-size: 23px;" href="{{url_for('home')}}">דף הבית</a>
-					<ul class="sub-menu-m">
-						<li><a href="">Brand</a></li>
-					</ul>
-					<span class="arrow-main-menu-m">
-						<i class="fa fa-angle-right" aria-hidden="true"></i>
-					</span>
 				</li>
 
 				<li>
 					<a style="font-size: 23px;" href="{{url_for('shop')}}">חנות</a>
+					<ul class="sub-menu-m">
+						{% if brands %}					
+							{% for brand in brands %}
+								<li style="text-align: center;">{{brand}}</li>
+							{% endfor %}
+						{% endif %}
+					</ul>
+					<span class="arrow-main-menu-m">
+						<i class="fa fa-angle-right" aria-hidden="true"></i>
+					</span>
 				</li>
 
 				<li>
@@ -324,11 +332,31 @@
 	<footer class="bg3 p-t-75 p-b-32" style="background-color: lightgray" id="contact">
 		<div class="container">
 			<div class="row">
+				<!-- <div class="col-sm-6 col-lg-3 p-b-50">
+					<h4 class="stext-301 cl0 p-b-30">
+						Categories
+					</h4>
+
+					<ul>
+						<li class="p-b-10">
+							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+								Women
+							</a>
+						</li>
+
+						<li class="p-b-10">
+							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+								Men
+							</a>
+						</li>
+					</ul>
+				</div> -->
+
 				<div class="col-sm-6 col-lg-4 p-b-50">
 					<h4 class="stext-301 cl0 p-b-30">
 						צור קשר
 					</h4>
-					<form>
+					<form method="POST" action="{{url_for('home')}}">
 						<div class="wrap-input1 w-full p-b-4">
 							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="name" placeholder="Name">
 							<div class="focus-input1 trans-04"></div>
@@ -343,6 +371,9 @@
 							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="message" placeholder="Your Message">
 							<div class="focus-input1 trans-04"></div>
 						</div>
+
+						<input type="checkbox" name="agreement" value="Agree" ><font style="font-size: 8px"> I agree to policy.</font><br>
+
 
 						<div class="p-t-18">
 							<button type="submit" class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
@@ -372,17 +403,21 @@
 						עלון
 					</h4>
 
-					<form>
+					<form method="POST" action="{{url_for('subscribe')}}">
 						<div class="wrap-input1 w-full p-b-4">
 							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email" placeholder="email@example.com">
 							<div class="focus-input1 trans-04"></div>
 						</div>
+
+						<input type="checkbox" name="agreement" value="Agree" ><font style="font-size: 8px"> I agree to policy.</font><br>
 
 						<div class="p-t-18">
 							<button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
 								הירשם
 							</button>
 						</div>
+
+
 					</form>
 				</div>
 
@@ -393,7 +428,7 @@
 					<div id="map"></div>	
 				   <script>
 				      function initMap() {
-				        var uluru = {lat: -25.363, lng: 131.044};
+				        var uluru = {lat: 32.709611, lng: 35.297253};
 				        var map = new google.maps.Map(document.getElementById('map'), {
 				          zoom: 4,
 				          center: uluru
@@ -413,6 +448,30 @@
 				    <script async defer
 				    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBk_G0aI57R5H03EL7Ir_BJDEl1U8LoRtk&callback=initMap">
 				    </script>
+				</div>
+			</div>
+
+			<div class="p-t-40">
+				<div class="flex-c-m flex-w p-b-18">
+					<a href="#" class="m-all-1">
+						<img src="{{url_for('static',filename='images/icons/icon-pay-01.png')}}" alt="ICON-PAY">
+					</a>
+
+					<a href="#" class="m-all-1">
+						<img src="{{url_for('static',filename='images/icons/icon-pay-02.png')}}" alt="ICON-PAY">
+					</a>
+
+					<a href="#" class="m-all-1">
+						<img src="{{url_for('static',filename='images/icons/icon-pay-03.png')}}" alt="ICON-PAY">
+					</a>
+
+					<a href="#" class="m-all-1">
+						<img src="{{url_for('static',filename='images/icons/icon-pay-04.png')}}" alt="ICON-PAY">
+					</a>
+
+					<a href="#" class="m-all-1">
+						<img src="{{url_for('static',filename='images/icons/icon-pay-05.png')}}" alt="ICON-PAY">
+					</a>
 				</div>
 			</div>
 		</div>

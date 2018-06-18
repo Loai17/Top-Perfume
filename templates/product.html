@@ -97,7 +97,11 @@
 							<li>
 								<a style="font-size: 23px;" href="{{url_for('shop')}}">חנות</a> 
 									<ul class="sub-menu">
-										<li>Brand</li>
+										{% if brands %}					
+											{% for brand in brands %}
+												<li style="text-align: center;">{{brand}}</li>
+											{% endfor %}
+										{% endif %}
 									</ul>
 							</li>
 							<li>
@@ -194,16 +198,20 @@
 			<ul class="main-menu-m">
 				<li>
 					<a style="font-size: 23px;" href="{{url_for('home')}}">דף הבית</a>
-					<ul class="sub-menu-m">
-						<li><a href="">Brand</a></li>
-					</ul>
-					<span class="arrow-main-menu-m">
-						<i class="fa fa-angle-right" aria-hidden="true"></i>
-					</span>
 				</li>
 
 				<li>
 					<a style="font-size: 23px;" href="{{url_for('shop')}}">חנות</a>
+					<ul class="sub-menu-m">
+						{% if brands %}					
+							{% for brand in brands %}
+								<li style="text-align: center;">{{brand}}</li>
+							{% endfor %}
+						{% endif %}
+					</ul>
+					<span class="arrow-main-menu-m">
+						<i class="fa fa-angle-right" aria-hidden="true"></i>
+					</span>
 				</li>
 
 				<li>
@@ -606,7 +614,7 @@
 										</div>
 										
 										<!-- Add review -->
-										<form class="w-full">
+										<form class="w-full" method="POST" action="{{url_for('feedback',productId=product.id)}}">
 											<h5 class="mtext-108 cl2 p-b-7">
 												Add a review
 											</h5>
@@ -647,7 +655,7 @@
 												</div>
 											</div>
 
-											<button class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
+											<button type="submit" class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
 												Submit
 											</button>
 										</form>
@@ -1017,7 +1025,7 @@
 					</form>
 				</div>
 
-			<div class="col-sm-6 col-lg-4 p-b-50" dir="ltr">
+			<div class="col-sm-6 col-lg-4 p-b-50">
 				<h4 class="stext-301 cl0 p-b-30">
 						אנחנו כאן!
 					</h4>

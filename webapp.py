@@ -87,9 +87,9 @@ def home():
 			mail.send(msg)
 			print("message sent")
 
-			return render_template('index.html', success=True)
+			return render_template('index.html', success=True, form=form ,number=1, products=products, loadMore=loadMore, brands=brands)
 		else :
-			return render_template('index.html')
+			return render_template('index.html', form=form ,number=1, products=products, loadMore=loadMore, brands=brands)
 
 
 	return render_template('index.html', form=form ,number=1, products=products, loadMore=loadMore, brands=brands)
@@ -115,7 +115,7 @@ def loadMore(number):
 	if request.method == 'POST':
 		if form.validate() == False:
 			flash('All fields are required.')
-			return render_template('index.html', form=form)
+			return render_template('index.html', form=form, number=number, products=products, loadMore=loadMore, brands=brands)
 		else:
 			msg = Message("Website Message", sender='contactUs@example.com', recipients=['loai.qubti@gmail.com'])
 			msg.body = """
@@ -124,7 +124,7 @@ def loadMore(number):
 			""" % (form.name.data, form.email.data, form.message.data)
 			mail.send(msg)
 
-			return render_template('index.html', success=True)
+			return render_template('index.html', success=True, form=form, number=number, products=products, loadMore=loadMore, brands=brands)
 		
 	return render_template('index.html', form=form, number=number, products=products, loadMore=loadMore, brands=brands)
 
@@ -139,18 +139,25 @@ def subscribe():
 @app.route('/shop', methods=['GET','POST'])
 def shop():
 	products = session.query(ShopItems).all()
-	return render_template('shop.html' , products = products)
+	brands = ast.literal_eval(json.dumps(autoBrand()))
+	return render_template('shop.html' , products = products,brands = brands)
 
 @app.route('/about', methods=['GET','POST'])
 def about():
-	return render_template('about.html'	)
+	brands = ast.literal_eval(json.dumps(autoBrand()))
+	return render_template('about.html',brands=brands)
 
 @app.route('/product/<id>',methods=['GET','POST'])
 def product(id):
 	product = session.query(ShopItems).filter_by(id=id).one()
-	return render_template('product.html' , product=product)
+	brands = ast.literal_eval(json.dumps(autoBrand()))
+	return render_template('product.html' , product=product,brands=brands)
 
-
+@app.route('/feedback/<productId>', methods=['GET','POST'])
+def feedback(productId):
+	if request.method == "POST":
+		print(request.form['rating'])
+		return redirect(url_for('product',id=productId))
 
 
 
