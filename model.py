@@ -37,6 +37,9 @@ class Admin(Base):
 class Reviews(Base):
 	__tablename__ = 'reviews'
 	id = Column(Integer,primary_key=True)
+	name = Column(String)
+	email = Column(String)
+	date = Column(String)
 	rating = Column(Float)
 	review = Column(String)
 	shopItemID = Column(Integer, ForeignKey('shopItems.id'))
@@ -58,4 +61,4 @@ Base.metadata.create_all(engine)
 
 # admin = Admin(name="Rami Naddaf",username="rami",password="123123")
 # session.add(admin)
-# session.commit()
+session.commit()

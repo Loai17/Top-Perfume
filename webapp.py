@@ -6,6 +6,7 @@ from werkzeug.utils import secure_filename
 from forms import ContactForm
 import json, ast
 import pyperclip
+import datetime
 
 # Flask Mail
 from flask_mail import Message, Mail
@@ -24,8 +25,8 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
 app.config["MAIL_PORT"] = 465
 app.config["MAIL_USE_SSL"] = True
-app.config["MAIL_USERNAME"] = 'loai.qubti@gmail.com'
-app.config["MAIL_PASSWORD"] = 'Qloai1107'
+app.config["MAIL_USERNAME"] = 'topperfum1@gmail.com'
+app.config["MAIL_PASSWORD"] = 'Blackisblack212'
 
 mail.init_app(app)
 
@@ -79,7 +80,7 @@ def home():
 		form.message = request.form['message']
 		
 		if form.name != "" and form.email!= "" and form.message != "":
-			msg = Message("Website Message", sender='contactUs@example.com', recipients=['loai.qubti@gmail.com'])
+			msg = Message("Website Message", sender='TopPerfum1@gmail.com', recipients=['topperfum1@gmail.com'])
 			msg.body = """
 			From: %s <%s>
 			Message: %s
@@ -104,8 +105,8 @@ def loadMore(number):
 
 	products=[]
 	if len(productsList) >= (8 * int(number)) :
-		for i in range(8*number) :
-				products.append(productsList[i])
+		for i in range(8* int(number)) :
+			products.append(productsList[i])
 	else:
 		products = productsList
 
@@ -115,7 +116,7 @@ def loadMore(number):
 	if request.method == 'POST':
 		if form.validate() == False:
 			flash('All fields are required.')
-			return render_template('index.html', form=form, number=number, products=products, loadMore=loadMore, brands=brands)
+			return render_template('index.html', form=form, number=int(number), products=products, loadMore=loadMore, brands=brands)
 		else:
 			msg = Message("Website Message", sender='contactUs@example.com', recipients=['loai.qubti@gmail.com'])
 			msg.body = """
@@ -124,9 +125,9 @@ def loadMore(number):
 			""" % (form.name.data, form.email.data, form.message.data)
 			mail.send(msg)
 
-			return render_template('index.html', success=True, form=form, number=number, products=products, loadMore=loadMore, brands=brands)
+			return render_template('index.html', success=True, form=form, number=int(number), products=products, loadMore=loadMore, brands=brands)
 		
-	return render_template('index.html', form=form, number=number, products=products, loadMore=loadMore, brands=brands)
+	return render_template('index.html', form=form, number=int(number), products=products, loadMore=loadMore, brands=brands)
 
 @app.route('/subscribe', methods=['POST'])
 def subscribe():
@@ -156,11 +157,69 @@ def product(id):
 @app.route('/feedback/<productId>', methods=['GET','POST'])
 def feedback(productId):
 	if request.method == "POST":
-		print(request.form['rating'])
+		date = str(datetime.datetime.now().day) + "/" + str(datetime.datetime.now().month) + "/" + str(datetime.datetime.now().year)
+		name = request.form['name']
+		email = request.form['email']
+		rating = request.form['rating']
+		review = request.form['review']
+		shopItemId = productId
+
+		feedback = Reviews(name=name,email=email,date=date,rating=rating,review=review,shopItemID=shopItemId)
+		session.add(feedback)
+		session.commit()
+
 		return redirect(url_for('product',id=productId))
+	return redirect(url_for('product',id=productId))
+
+@app.route('/search',methods=['GET','POST'])
+def search():
+	if request.method == "POST":
+		searchedFor1 = request.form['search']
+		searchedForList = searchedFor1.split()
+		print(searchedForList)
+
+		products = session.query(ShopItems).all()
+		productsIdFound = []
+
+		for word in searchedForList:
+			for product in products:
+				if (product.name.lower()).find(word.lower()) != -1:
+					print ("found " + product.name + " by name")
+					if(product.id in productsIdFound):
+						print("It's already in")
+					else:
+						productsIdFound.append(product.id)
+						print("Appended " + product.name)
+				elif (product.description.lower()).find(word.lower()) != -1:
+					print ("found " + product.name + " by description")
+					if(product.id in productsIdFound):
+						print("It's already in")
+					else:
+						productsIdFound.append(product.id)
+						print("Appended " + product.name)
+				elif (product.brand.lower()).find(word.lower()) != -1:
+					print ("found " + product.name + " by brand")
+					if(product.id in productsIdFound):
+						print("It's already in")
+					else:
+						productsIdFound.append(product.id)
+						print("Appended " + product.name)
+				else:
+					print ("found none")
+
+		return redirect(url_for('searchResults',productsIdFound=productsIdFound))
+
+@app.route('/results/<productsIdFound>',methods=['GET','POST'])
+def searchResults(productsIdFound):
+	productsFound = []
+
+	for idNum in productsIdFound:
+		prodTemp = session.query(ShopItems).filter_by(id=idNum).first()
+		productsFound.append(prodTemp)
 
 
-
+	brands = ast.literal_eval(json.dumps(autoBrand()))
+	return render_template('shop.html' , products = productsFound,brands = brands)
 
 
 # Admin Portal
