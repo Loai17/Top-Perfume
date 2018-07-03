@@ -23,7 +23,7 @@ class ShopItems(Base):
 	description = Column(String)
 	price = Column(String)
 	thumbnail = Column(String)
-	images = Column(String) #Use a sign to seperate links.
+	images = Column(String) #Use a sign to seperate links. -> Comma
 
 	reviews = relationship('Reviews')
 

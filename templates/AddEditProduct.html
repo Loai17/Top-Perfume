@@ -409,7 +409,7 @@
 		{% if product %}
 			<div class="form-style-8" align="center">
 			  <h2>Edit Product</h2>
-			  <form action="{{url_for('editProduct' , id = product.id)}}" method="POST">
+			  <form action="{{url_for('editProduct' , id = product.id)}}" method="POST" enctype=multipart/form-data>
 			    <input type="text" name="name" placeholder="Name" value="{{product.name}}" />
 				<!-- Gender -->
 				<label for="gender">Gender:</label>
@@ -430,6 +430,15 @@
 				</select>      
 			    <input type="number" name="price" placeholder="Price" value="{{product.price}}" />
 			    <textarea placeholder="Description" name="description" value="{{product.description}}" onkeyup="adjust_textarea(this)"></textarea>
+			    <label for="thumb">Thumbnail:</label>
+			    <input type="file" name="thumb"><br>
+			   
+			    <label for="cover1">Cover(1):</label>
+			    <input type="file" name="cover1"><br>
+			    <label for="cover2">Cover(2):</label>
+			    <input type="file" name="cover2"><br>
+			    <label for="cover3">Cover(3):</label>
+			    <input type="file" name="cover3"><br>
 			    <input type="submit" value="Submit" />
 			  </form>
 			</div>
@@ -440,7 +449,7 @@
 	{% else %}
 	<div class="form-style-8" align="center">
 	  <h2>Add Product</h2>
-	  <form action="{{url_for('addProduct')}}" method="POST">
+	  <form action="{{url_for('addProduct')}}" method="POST" enctype="multipart/form-data">
 	    <input type="text" name="name" placeholder="Name" />
 		<!-- Gender -->
 		<label for="gender">Gender:</label>
@@ -461,6 +470,16 @@
 		</select>      
 	    <input type="number" name="price" placeholder="Price" />
 	    <textarea placeholder="Description" name="description" onkeyup="adjust_textarea(this)"></textarea>
+
+		<label for="thumb">Thumbnail:</label>
+	    <input type="file" name="thumb"><br>
+	   
+	    <label for="cover1">Cover(1):</label>
+	    <input type="file" name="cover1"><br>
+	    <label for="cover2">Cover(2):</label>
+	    <input type="file" name="cover2"><br>
+	    <label for="cover3">Cover(3):</label>
+	    <input type="file" name="cover3"><br>
 	    <input type="submit" value="Submit" />
 	  </form>
 	</div>

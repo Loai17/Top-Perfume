@@ -7,6 +7,7 @@ from forms import ContactForm
 import json, ast
 import pyperclip
 import datetime
+import os
 
 # Flask Mail
 from flask_mail import Message, Mail
@@ -152,7 +153,14 @@ def about():
 def product(id):
 	product = session.query(ShopItems).filter_by(id=id).one()
 	brands = ast.literal_eval(json.dumps(autoBrand()))
-	return render_template('product.html' , product=product,brands=brands)
+
+	covers = product.images.split(",")
+	
+	cover1 = covers[0]
+	cover2 = covers[1]
+	cover3 = covers[2]
+
+	return render_template('product.html' , product=product,brands=brands,cover1=cover1,cover2=cover2,cover3=cover3)
 
 @app.route('/feedback/<productId>', methods=['GET','POST'])
 def feedback(productId):
@@ -267,17 +275,34 @@ def addProduct():
 			brand = request.form['brand']
 			price = request.form['price']
 			description = request.form['description']
-			thumbnail = "none"
-			images = "none"
+			thumbnail = request.files['thumb'].filename
+			images = request.files['cover1'].filename+","+request.files['cover2'].filename+","+request.files['cover3'].filename
 
 			product = ShopItems(name=name,gender=gender,brand=brand,description=description,price=price,thumbnail=thumbnail,images=images)
-			session.add(product)
-			session.commit()
+			
+			thumbPic=request.files['thumb']
+			coverPic1=request.files['cover1']
+			coverPic2=request.files['cover2']
+			coverPic3=request.files['cover3']
+			
+			if thumbPic and allowed_file(thumbPic.filename) and coverPic1 and allowed_file(coverPic1.filename) and coverPic2 and allowed_file(coverPic2.filename) and coverPic3 and allowed_file(coverPic3.filename):
+				# thumb_name = "1_" + secure_filename(thumb.filename)
+				# cover_name = "1_" + secure_filename(cover.filename)
+				thumbPic.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(thumbPic.filename)))
+				coverPic1.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(coverPic1.filename)))
+				coverPic2.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(coverPic2.filename)))
+				coverPic3.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(coverPic3.filename)))
 
-			return redirect(url_for('admin'))
+				session.add(product)
+				session.commit()
+
+				return redirect(url_for('admin'))
+			else:
+				return None
 
 		return render_template('AddEditProduct.html')
 	return redirect(url_for('adminSignin'))
+
 
 @app.route('/editProduct/<id>', methods=['GET','POST'])
 def editProduct(id):
