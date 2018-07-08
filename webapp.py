@@ -160,7 +160,18 @@ def product(id):
 	cover2 = covers[1]
 	cover3 = covers[2]
 
-	return render_template('product.html' , product=product,brands=brands,cover1=cover1,cover2=cover2,cover3=cover3)
+	reviews = session.query(Reviews).filter_by(shopItemID=id).all()
+	starAverage = 0;
+	starSum = 0;
+	starCounter = 0;
+
+	for review in reviews:
+		starSum += review.rating
+
+	if(starSum>0):
+		starAverage = starSum/len(reviews);
+
+	return render_template('product.html' , product=product,brands=brands,cover1=cover1,cover2=cover2,cover3=cover3, reviews=reviews,averageRating=starAverage,reviewsNum=len(reviews))
 
 @app.route('/feedback/<productId>', methods=['GET','POST'])
 def feedback(productId):
@@ -256,12 +267,17 @@ def adminSignin():
 @app.route('/admin-panel-secret-login', methods=['GET','POST'])
 def admin():
 	if 'idAdmin' in login_session:
-		products = session.query(ShopItems).all()
 		emails = session.query(Emails).all()
+		products = session.query(ShopItems).all()
+		allReviews = session.query(Reviews).all()
+
+		# products = []  # list of products
+		# for product in session.query(ShopItems).all():
+		# 	products.append(product.encode('utf-8'))
 
 		if request.method== 'POST':
-			return render_template('admin.html', products=products, emails=emails)
-		return render_template('admin.html' , products=products, emails=emails)
+			return render_template('admin.html', products=products, emails=emails, reviews=allReviews)
+		return render_template('admin.html' , products=products, emails=emails , reviews=allReviews)
 	else:
 		return redirect(url_for('adminSignin'))
 
@@ -269,6 +285,8 @@ def admin():
 @app.route('/addProduct', methods=['GET','POST'])
 def addProduct():
 	if 'idAdmin' in login_session:
+		brands = ast.literal_eval(json.dumps(autoBrand()))
+
 		if request.method == 'POST':
 			name = request.form['name']
 			gender = request.form['gender']
@@ -300,7 +318,7 @@ def addProduct():
 			else:
 				return None
 
-		return render_template('AddEditProduct.html')
+		return render_template('AddEditProduct.html', brands=brands)
 	return redirect(url_for('adminSignin'))
 
 
@@ -308,6 +326,7 @@ def addProduct():
 def editProduct(id):
 	if 'idAdmin' in login_session:
 		product = session.query(ShopItems).filter_by(id=id).one()
+		brands = ast.literal_eval(json.dumps(autoBrand()))
 
 		if request.method == 'POST':
 			name = request.form['name']
@@ -318,9 +337,15 @@ def editProduct(id):
 			thumbnail = "none"
 			images = "none"
 
+			newBrand = request.form['brandOther']
+
+			if request.form['brand'] != "noChange":
+				if newBrand!="":
+					brand = newBrand 
+				product.brand=brand
+
 			product.name=name
 			product.gender=gender
-			product.brand=brand
 			product.price=price
 			product.description=description
 			product.thumbnail=thumbnail
@@ -329,7 +354,7 @@ def editProduct(id):
 
 			return redirect(url_for('admin'))
 
-		return render_template('AddEditProduct.html' , edit=True, product=product)
+		return render_template('AddEditProduct.html' , edit=True, product=product,brands=brands)
 	return redirect(url_for('adminSignin'))
 
 @app.route('/logout', methods=['GET','POST'])
