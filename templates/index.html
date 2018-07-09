@@ -44,6 +44,21 @@
 		.a {
 			font-size: 100px
 		}
+
+		::-webkit-input-placeholder { /* Chrome */
+		  color: white;
+		}
+		:-ms-input-placeholder { /* IE 10+ */
+		  color: white;
+		}
+		::-moz-placeholder { /* Firefox 19+ */
+		  color: white;
+		  opacity: 1;
+		}
+		:-moz-placeholder { /* Firefox 4 - 18 */
+		  color: white;
+		  opacity: 1;
+		}
     </style>
 
 </head>
@@ -166,11 +181,11 @@
 
 		<!-- Menu Mobile -->
 		<div class="menu-mobile">
-			<ul class="topbar-mobile">
+		<!-- 	<ul class="topbar-mobile">
 				<li>
 					<div class="left-top-bar">
-<!-- 						Free shipping for standard order over $100
- -->					</div>
+						Free shipping for standard order over $100
+					</div>
 				</li>
 
 				<li>
@@ -192,41 +207,23 @@
 						</a>
 					</div>
 				</li>
-			</ul>
+			</ul> -->
 
-			<ul class="main-menu-m">
+			<ul class="main-menu-m" style="background-color: #FE7C73;">
 				<li>
 					<a style="font-size: 23px;" href="">דף הבית</a>
 				</li>
 
 				<li>
 					<a style="font-size: 23px;" href="{{url_for('shop')}}">חנות</a>
-					<ul class="sub-menu-m">
-						{% if brands %}							
-							{% for brand in brands %}
-								<li>{{brand}}</li>
-							{% endfor %}
-						{% endif %}
-					</ul>
-					<span class="arrow-main-menu-m">
-						<i class="fa fa-angle-right" aria-hidden="true"></i>
-					</span>
 				</li>
-
-		<!-- 		<li>
-					<a href="shoping-cart.html" class="label1 rs1" data-label1="hot">Features</a>
-				</li> -->
-
-	<!-- 			<li>
-					<a href="blog.html">Blog</a>
-				</li> -->
 
 				<li>
 					<a style="font-size: 23px;" href="{{url_for('about')}}">על אודות</a>
 				</li>
 
 				<li>
-					<a style="font-size: 23px;" href="contact.html">צור קשר</a>
+					<a style="font-size: 23px;" href="#contact">צור קשר</a>
 				</li>
 			</ul>
 		</div>
@@ -339,72 +336,72 @@
 	<section class="section-slide">
 		<div class="wrap-slick1">
 			<div class="slick1">
-				<div class="item-slick1" style="background-image: url(static/images/slide-01.jpg);">
+				<div class="item-slick1" style="background-image: url(../static/images/slide-01.jpg);">
 					<div class="container h-full">
 						<div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
 							<div class="layer-slick1 animated visible-false" data-appear="fadeInDown" data-delay="0">
 								<span class="ltext-101 cl2 respon2">
-									Women Collection 2018
+									קולקציות הנשים 2018
 								</span>
 							</div>
 								
 							<div class="layer-slick1 animated visible-false" data-appear="fadeInUp" data-delay="800">
 								<h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1">
-									NEW SEASON
+									עונה חדשה
 								</h2>
 							</div>
 								
 							<div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
-								<a href="product.html" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
-									Shop Now
+								<a href="{{url_for('shop')}}" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+									קנה עכשיו
 								</a>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<div class="item-slick1" style="background-image: url(static/images/slide-02.jpg);">
+				<div class="item-slick1" style="background-image: url(../static/images/slide-02.jpg);">
 					<div class="container h-full">
 						<div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
 							<div class="layer-slick1 animated visible-false" data-appear="rollIn" data-delay="0">
 								<span class="ltext-101 cl2 respon2">
-									Men New-Season
+									גברים - העונה החדשה
 								</span>
 							</div>
 								
 							<div class="layer-slick1 animated visible-false" data-appear="lightSpeedIn" data-delay="800">
 								<h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1">
-									Jackets & Coats
+									כל המוצרים המיוחדים
 								</h2>
 							</div>
 								
 							<div class="layer-slick1 animated visible-false" data-appear="slideInUp" data-delay="1600">
-								<a href="product.html" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
-									Shop Now
+								<a href="{{url_for('shop')}}" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+									קנה עכשיו
 								</a>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<div class="item-slick1" style="background-image: url(static/images/slide-03.jpg);">
+				<div class="item-slick1" style="background-image: url(../static/images/slide-03.jpg);">
 					<div class="container h-full">
 						<div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
 							<div class="layer-slick1 animated visible-false" data-appear="rotateInDownLeft" data-delay="0">
 								<span class="ltext-101 cl2 respon2">
-									Men Collection 2018
+									קולקציות הגברים 2018
 								</span>
 							</div>
 								
 							<div class="layer-slick1 animated visible-false" data-appear="rotateInUpRight" data-delay="800">
 								<h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1">
-									New arrivals
+									כניסות חדשות
 								</h2>
 							</div>
 								
 							<div class="layer-slick1 animated visible-false" data-appear="rotateIn" data-delay="1600">
-								<a href="product.html" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
-									Shop Now
+								<a href="{{url_for('shop')}}" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+									קנה עכשיו
 								</a>
 							</div>
 						</div>
@@ -463,7 +460,7 @@
 			<div class="flex-w flex-sb-m p-b-52">
 
 				<div class="flex-w flex-c-m m-tb-10">
-					<div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search">
+			<!-- 		<div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search">
 						<i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
 						<i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
 						חפש
@@ -473,7 +470,7 @@
 						<i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
 						<i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
 						 פילטר
-					</div>
+					</div> -->
 
 				</div>
 				
@@ -775,22 +772,22 @@
 					</h4>
 					<form method="POST" action="{{url_for('home')}}">
 						<div class="wrap-input1 w-full p-b-4">
-							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="name" placeholder="Name">
+							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="name" placeholder="Name" style="color: white;">
 							<div class="focus-input1 trans-04"></div>
 						</div>
 
 						<div class="wrap-input1 w-full p-b-4">
-							<input class="input1 bg-none plh1 stext-107 cl7" type="email" name="email" placeholder="email@example.com">
+							<input class="input1 bg-none plh1 stext-107 cl7" type="email" name="email" placeholder="email@example.com" style="color: white;">
 							<div class="focus-input1 trans-04"></div>
 						</div>
 
 						<div class="wrap-input1 w-full p-b-4">
-							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="message" placeholder="Your Message">
+							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="message" placeholder="Your Message" style="color: white;">
 							<div class="focus-input1 trans-04"></div>
 						</div>
 
-						<input type="checkbox" name="agreement" value="Agree" ><font style="font-size: 8px"> I agree to policy.</font><br>
-
+<!-- 						<input type="checkbox" name="agreement" value="Agree" ><font style="font-size: 8px"> I agree to policy.</font><br>
+ -->
 
 						<div class="p-t-18">
 							<button type="submit" class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
@@ -809,9 +806,6 @@
 							<i class="fa fa-instagram"></i>
 						</a>
 
-						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-							<i class="fa fa-pinterest-p"></i>
-						</a>
 					</div>
 				</div>
 
@@ -819,15 +813,14 @@
 					<h4 class="stext-301 cl0 p-b-30">
 						עלון
 					</h4>
-
 					<form method="POST" action="{{url_for('subscribe')}}">
 						<div class="wrap-input1 w-full p-b-4">
-							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email" placeholder="email@example.com">
+							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email" placeholder="email@example.com" style="color: white;">
 							<div class="focus-input1 trans-04"></div>
 						</div>
 
-						<input type="checkbox" name="agreement" value="Agree" ><font style="font-size: 8px"> I agree to policy.</font><br>
-
+<!-- 						<input type="checkbox" name="agreement" value="Agree" ><font style="font-size: 8px"> I agree to policy.</font><br>
+ -->
 						<div class="p-t-18">
 							<button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
 								הירשם
@@ -839,9 +832,9 @@
 				</div>
 
 			<div class="col-sm-6 col-lg-4 p-b-50">
-				<h4 class="stext-301 cl0 p-b-30">
+				<h3 class="stext-301 cl0 p-b-30">
 						אנחנו כאן!
-					</h4>
+					</h3>
 					<div id="map" dir="ltr"></div>	
 				   <script>
 				      function initMap() {
@@ -882,13 +875,13 @@
 						<img src="{{url_for('static',filename='images/icons/icon-pay-03.png')}}" alt="ICON-PAY">
 					</a>
 
-					<a href="#" class="m-all-1">
+<!-- 					<a href="#" class="m-all-1">
 						<img src="{{url_for('static',filename='images/icons/icon-pay-04.png')}}" alt="ICON-PAY">
 					</a>
 
 					<a href="#" class="m-all-1">
 						<img src="{{url_for('static',filename='images/icons/icon-pay-05.png')}}" alt="ICON-PAY">
-					</a>
+					</a> -->
 				</div>
 			</div>
 		</div>

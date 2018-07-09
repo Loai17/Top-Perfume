@@ -169,7 +169,7 @@
 					<div class="menu-desktop">
 						<ul class="main-menu">
 							<li class="active-menu">
-								<a style="font-size: 23px;" href="">דף הבית</a>
+								<a style="font-size: 23px;" href="{{url_for('home')}}">דף הבית</a>
 							</li>
 							<li>
 								<a style="font-size: 23px;" href="{{url_for('shop')}}">חנות</a> 
@@ -268,15 +268,9 @@
 				</li>
 			</ul> -->
 
-			<ul class="main-menu-m">
+			<ul class="main-menu-m" style="background-color: #FE7C73;">
 				<li>
 					<a style="font-size: 23px;" href="{{url_for('home')}}">דף הבית</a>
-					<ul class="sub-menu-m">
-						<li><a href="">Brand</a></li>
-					</ul>
-					<span class="arrow-main-menu-m">
-						<i class="fa fa-angle-right" aria-hidden="true"></i>
-					</span>
 				</li>
 
 				<li>
