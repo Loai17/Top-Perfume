@@ -47,10 +47,10 @@
     </style>
 
 </head>
-<body class="animsition" dir="rtl">
+<body class="animsition" dir="ltr">
 	
 	<!-- Header -->
-	<header>
+	<header dir="rtl">
 		<!-- Header desktop -->
 		<div class="container-menu-desktop">
 			<!-- Topbar -->
@@ -96,13 +96,13 @@
 							</li>
 							<li>
 								<a style="font-size: 23px;" href="{{url_for('shop')}}">חנות</a> 
-									<ul class="sub-menu">
+<!-- 									<ul class="sub-menu">
 										{% if brands %}					
 											{% for brand in brands %}
 												<li style="text-align: center;">{{brand}}</li>
 											{% endfor %}
 										{% endif %}
-									</ul>
+									</ul> -->
 							</li>
 							<li>
 								<a style="font-size: 23px;" href="{{url_for('about')}}">על אודות</a>
@@ -135,7 +135,7 @@
 		</div>
 
 		<!-- Header Mobile -->
-		<div class="wrap-header-mobile" dir="ltr">
+		<div class="wrap-header-mobile" dir="rtl">
 			<!-- Logo moblie -->		
 			<div class="logo-mobile">
 				<a href="index.html"><!-- <img src="{{url_for('static',filename='images/icons/logo-01.png')}}" alt="IMG-LOGO"> --> <h3 style="color: black;">Top Perfume</h3></a>
@@ -351,7 +351,7 @@
 	{% if product %}
 	<!-- Product Detail -->
 	<section class="sec-product-detail bg0 p-t-65 p-b-60" >
-		<div class="container"dir="ltr">
+		<div class="container" dir="ltr">
 			<div class="row">
 				<div class="col-md-6 col-lg-7 p-b-30">
 					<div class="p-l-25 p-r-30 p-lr-0-lg">
@@ -448,9 +448,9 @@
 								</div>
 							</div> -->
 
-							<div class="flex-w flex-r-m p-b-10">
+<!-- 							<div class="flex-w flex-r-m p-b-10">
 								<div class="size-204 flex-w flex-m respon6-next">
-									<div class="wrap-num-product flex-w m-r-20 m-tb-10">
+ --> <!-- 									<div class="wrap-num-product flex-w m-r-20 m-tb-10">
 										<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
 											<i class="fs-16 zmdi zmdi-minus"></i>
 										</div>
@@ -462,11 +462,12 @@
 										</div>
 									</div>
 
-<!-- 									<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+ 									<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
 										Add to cart
 									</button> -->
 
 <!-- PAYPAL -->
+<br>
 <div id="paypal-button"></div>
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script>
@@ -483,7 +484,7 @@
 
                   style: {
                       color: 'blue',
-                      size: 'small'
+                      size: 'medium'
                   },
 
                   payment: function(data, actions) {
@@ -519,9 +520,9 @@
           </script>
 
 
-								</div>
-							</div>	
-						</div>
+								<!-- </div> -->
+<!-- 							</div>	
+ -->						</div>
 
 						<!--  -->
 <!-- 						<div class="flex-w flex-m p-l-100 p-t-40 respon7">
@@ -547,7 +548,7 @@
 				</div>
 			</div>
 
-			<div class="bor10 m-t-50 p-t-43 p-b-40">
+			<div class="bor10 m-t-50 p-t-43 p-b-40" dir="rtl">
 				<!-- Tab01 -->
 				<div class="tab01">
 					<!-- Nav tabs -->
@@ -560,7 +561,7 @@
 							<a class="nav-link" data-toggle="tab" href="#information" role="tab">מידע נוסף</a>
 						</li> -->
 
-						<li class="nav-item p-b-10">
+						<li class="nav-item p-b-10" >
 							<a class="nav-link" data-toggle="tab" href="#reviews" role="tab">ביקורות ({{reviewsNum}})</a>
 						</li>
 					</ul>
@@ -1047,7 +1048,7 @@
 	</section>
 	{% endif %}
 	<!-- Footer -->
-	<footer class="bg3 p-t-75 p-b-32" style="background-color: #FE7C73" id="contact">
+	<footer class="bg3 p-t-75 p-b-32" style="background-color: #FE7C73" id="contact" dir="rtl">
 		<div class="container">
 			<div class="row">
 				<!-- <div class="col-sm-6 col-lg-3 p-b-50">

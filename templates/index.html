@@ -62,10 +62,10 @@
     </style>
 
 </head>
-<body class="animsition" dir="rtl">
+<body class="animsition" style="overflow-y: scroll;">
 	
 	<!-- Header -->
-	<header>
+	<header dir="rtl">
 		<!-- Header desktop -->
 		<div class="container-menu-desktop">
 			<!-- Topbar -->
@@ -111,13 +111,13 @@
 							</li>
 							<li>
 								<a style="font-size: 23px;" href="{{url_for('shop')}}">חנות</a> 
-								<ul class="sub-menu" dir="ltr" style="left: 0px;right: 0px;">
+<!-- 								<ul class="sub-menu" dir="ltr" style="left: 0px;right: 0px;">
 								{% if brands %}					
 									{% for brand in brands %}
 										<li style="text-align: center;">{{brand}}</li>
 									{% endfor %}
 								{% endif %}
-								</ul>
+								</ul> -->
 							</li>
 							<li>
 								<a style="font-size: 23px;" href="{{url_for('about')}}">על אודות</a>
@@ -743,7 +743,7 @@
 
 
 	<!-- Footer -->
-	<footer class="bg3 p-t-75 p-b-32" style="background-color: #FE7C73" id="contact">
+	<footer class="bg3 p-t-75 p-b-32" style="background-color: #FE7C73" id="contact" dir="rtl">
 		<div class="container">
 			<div class="row">
 				<!-- <div class="col-sm-6 col-lg-3 p-b-50">
