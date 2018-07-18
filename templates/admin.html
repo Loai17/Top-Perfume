@@ -237,11 +237,11 @@
 					<img src="{{url_for('static',filename='images/icons/icon-close2.png')}}" alt="CLOSE">
 				</button>
 
-				<form class="wrap-search-header flex-w p-l-15">
+				<form class="wrap-search-header flex-w p-l-15" method="POST" action="{{url_for('search')}}">
 					<button class="flex-c-m trans-04">
 						<i class="zmdi zmdi-search"></i>
 					</button>
-					<input class="plh3" type="text" name="search" placeholder="Search...">
+					<input class="plh3" type="text" name="search" placeholder="חפש...">
 				</form>
 			</div>
 		</div>
@@ -341,22 +341,22 @@
 	<br><br>
 	<div align="center">
 		<table class="scroll">		<!-- PRODUCTS TABLE -->
-			<h2 align="center">ניהול מוצרים :</h2>
+			<h2 align="center"><u>ניהול מוצרים :</u></h2>
 	        <tr style="border-bottom: 2px solid black">
 	            <th style="text-align: center;">תמונה</th>
 	            <th style="text-align: center;">שם</th>
-	            <th style="text-align: center;">דירוג</th>
-	            <th style="text-align: center;">מין</th>
+<!-- 	            <th style="text-align: center;">דירוג</th>
+ -->	            <th style="text-align: center;">מין</th>
 	            <th style="text-align: center;">מחיר</th>
 	        </tr>
 		    <tbody>
 		    	{% if products %}
 		    	{% for product in products %}
 			        <tr style="border-bottom: 1px solid black" class='clickable-row' data-href="{{url_for('editProduct', id = product.id)}}">
-			            <td>{{product.thumbnail}}</td> <!--Thumbnail-->
+			            <td><img style="width: 50px;height: 50px;" src="../static/productsImages/{{product.thumbnail}}"></td> <!--Thumbnail-->
 			            <td>  {{product.name}}  </td> <!--Name-->
 			            {% if product.reviews %}
-			            	<script type="text/javascript">
+<!-- 			            	<script type="text/javascript">
 			            		var sum = 0;
 			            		var c = 0;
 			            		var productReviews = {{ product }}.reviews;
@@ -367,13 +367,20 @@
 			            		var avg = sum/c;
 			            		print(avg);
 			            	</script>
-			            	<td> {{avg}} </td> <!--Rating-->
-			            	
+			            	<td> {{avg}} </td> Rating-->
+ -->			            	
 			            {% else %}
-			            	<td> None </td>
+<!-- 			            	<td> None </td>
+ -->			            {% endif %}
+ 						
+ 						{% if product.gender == "men" %}
+			            <td> גברים </td> <!--Gender-->
+			            {% else %}
+			            <td> נשים </td> <!--Gender-->
 			            {% endif %}
-			            <td> {{product.gender}} </td> <!--Gender-->
+
 			            <td> {{product.price}} </td> <!--Price-->
+			            <td><a href="{{url_for('deleteProduct', id=product.id)}}" style="color: red;"> מחק </a>
 			        </tr>
 			    {% endfor %}
 			    {% endif %}
@@ -385,7 +392,7 @@
 	<br>
 		<div align="center">
 		<table class="scroll">		<!-- EMAILS NEWSLETTER TABLE -->
-			<h2 align="center">ניהול אי-מיילים :</h2>
+			<h2 align="center"><u>ניהול אי-מיילים :</u></h2>
 			<a href="{{url_for('copyEmails')}}">העתק כל האי-מיילים</a>
 	        <tr style="border-bottom: 2px solid black">
 	            <th style="text-align: center;">אי-מייל</th>
@@ -396,7 +403,7 @@
 		    	{% for email in emails %}
 			        <tr style="border-bottom: 1px solid black">
 			            <td>{{email.email}}</td> <!-- Email -->
-			             <!-- Delete button  -->
+						<td><a href="{{url_for('deleteEmail', id=email.id)}}" style="color: red;"> מחק </a> <!-- Delete button  -->
 					</tr>
 			    {% endfor %}
 			    {% endif %}
@@ -407,7 +414,7 @@
 	<br>
 	<br>
 		<table class="scroll">		<!-- REVIEWS / RATINGS TABLE -->
-			<h2 align="center">ניהול מוצרים :</h2>
+			<h2 align="center"><u>ניהול דירוגים :</u></h2>
 	        <tr style="border-bottom: 2px solid black">
 	            <th style="text-align: center;">שם</th>
 	            <th style="text-align: center;">אי-מייל</th>
@@ -424,6 +431,7 @@
 			            <td> {{review.review}} </td> <!--Review-->
 			            <td> {{review.rating}} </td> <!--Rating-->
 			            <td> {{review.date}} </td> <!--Date-->
+			            <td><a href="{{url_for('deleteReview', id=review.id)}}" style="color: red;"> מחק </a>
 			        </tr>
 			    {% endfor %}
 			    {% endif %}
@@ -457,7 +465,7 @@
 	</script>
 
 	<!-- Footer -->
-	<footer class="bg3 p-t-75 p-b-32" style="background-color: #FE7C73" id="contact">
+	<footer class="bg3 p-t-75 p-b-32" style="background-color: #FE7C73" id="contact" dir="rtl">
 		<div class="container">
 			<div class="row">
 				<!-- <div class="col-sm-6 col-lg-3 p-b-50">
@@ -600,7 +608,6 @@
 			</div>
 		</div>
 	</footer>
-
 
 	<!-- Back to top -->
 	<div class="btn-back-to-top" id="myBtn">

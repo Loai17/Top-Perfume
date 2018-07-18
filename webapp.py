@@ -54,7 +54,8 @@ def autoBrand():
 			brands.append(product.brand)
 
 	if brands == []:
-		return "Sorry about that. Looks like you don't have any products yet."
+		brands = [""]
+		print "Sorry about that. Looks like you don't have any products yet."
 	return brands
 
 
@@ -171,7 +172,14 @@ def product(id):
 	if(starSum>0):
 		starAverage = starSum/len(reviews);
 
-	return render_template('product.html' , product=product,brands=brands,cover1=cover1,cover2=cover2,cover3=cover3, reviews=reviews,averageRating=starAverage,reviewsNum=len(reviews))
+	allProducts= session.query(ShopItems).all()
+	relatedProducts=[]
+	for p in allProducts:
+		if p.brand == product.brand:
+			if p.id!=product.id:
+				relatedProducts.append(p)
+
+	return render_template('product.html' , product=product,brands=brands,cover1=cover1,cover2=cover2,cover3=cover3, reviews=reviews,averageRating=starAverage,reviewsNum=len(reviews),relatedProducts=relatedProducts)
 
 @app.route('/feedback/<productId>', methods=['GET','POST'])
 def feedback(productId):
@@ -356,6 +364,37 @@ def editProduct(id):
 
 		return render_template('AddEditProduct.html' , edit=True, product=product,brands=brands)
 	return redirect(url_for('adminSignin'))
+
+@app.route('/deleteProduct/<id>', methods=['GET','POST'])
+def deleteProduct(id):
+	if 'idAdmin' in login_session:
+		product = session.query(ShopItems).filter_by(id=id).one()
+
+		session.delete(product)
+		session.commit()
+
+	return redirect(url_for('admin'))	
+
+@app.route('/deleteEmail/<id>', methods=['GET','POST'])
+def deleteEmail(id):
+	if 'idAdmin' in login_session:
+		email = session.query(Emails).filter_by(id=id).one()
+
+		session.delete(email)
+		session.commit()
+
+	return redirect(url_for('admin'))	
+
+@app.route('/deleteReview/<id>', methods=['GET','POST'])
+def deleteReview(id):
+	if 'idAdmin' in login_session:
+		review = session.query(Reviews).filter_by(id=id).one()
+
+		session.delete(review)
+		session.commit()
+
+	return redirect(url_for('admin'))	
+
 
 @app.route('/logout', methods=['GET','POST'])
 def logout():
