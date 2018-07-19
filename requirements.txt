@@ -9,7 +9,7 @@ Flask-WTF==0.14.2
 gevent==1.2.2
 gevent-socketio==0.3.5rc2
 gevent-websocket==0.10.1
-gunicorn==18.0
+gunicorn==19.5.0
 itsdangerous==0.24
 Jinja2==2.9.6
 passlib==1.7.1
