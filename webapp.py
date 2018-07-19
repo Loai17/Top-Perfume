@@ -357,7 +357,7 @@ def editProduct(id):
 			cover3original = originalCovers[2] 
 
 			if thumbnail == "":
-				print "Thumbnail is not changed"
+				print ("Thumbnail is not changed")
 			else:
 				thumbPic=request.files['thumb']
 				if thumbPic and allowed_file(thumbPic.filename):
@@ -367,7 +367,7 @@ def editProduct(id):
 					tkMessageBox.showinfo("שם התמונה לא יתקבל", "אנא שנה את שם הקובץ של תמונת החוצה בבקשה.")
 
 			if cover1 == "":
-				print "Cover1 is not changed"
+				print ("Cover1 is not changed")
 				images = cover1original
 			else:
 				coverPic1=request.files['cover1']
@@ -378,7 +378,7 @@ def editProduct(id):
 					tkMessageBox.showinfo("שם התמונה לא יתקבל", "אנא שנה את שם הקובץ של תמונה(1) בבקשה.")
 
 			if cover2 == "":
-				print "Cover2 is not changed"
+				print ("Cover2 is not changed")
 				images = images+","+cover2original
 			else:
 				coverPic2=request.files['cover2']
@@ -389,7 +389,7 @@ def editProduct(id):
 					tkMessageBox.showinfo("שם התמונה לא יתקבל", "אנא שנה את שם הקובץ של תמונה(2) בבקשה.")
 
 			if cover3 == "":
-				print "Cover3 is not changed"
+				print ("Cover3 is not changed")
 				images = images+","+cover3original
 			else:
 				coverPic3=request.files['cover3']
