@@ -9,8 +9,6 @@ import json, ast
 import pyperclip
 import datetime
 import os
-import Tkinter
-import tkMessageBox
 
 # Flask Mail
 from flask_mail import Message, Mail
@@ -364,7 +362,7 @@ def editProduct(id):
 					thumbPic.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(thumbPic.filename)))
 					product.thumbnail=thumbnail
 				else:
-					tkMessageBox.showinfo("שם התמונה לא יתקבל", "אנא שנה את שם הקובץ של תמונת החוצה בבקשה.")
+					print("שם התמונה לא יתקבל", "אנא שנה את שם הקובץ של תמונת החוצה בבקשה.")
 
 			if cover1 == "":
 				print ("Cover1 is not changed")
@@ -375,7 +373,7 @@ def editProduct(id):
 					coverPic1.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(coverPic1.filename)))
 					images = cover1
 				else:
-					tkMessageBox.showinfo("שם התמונה לא יתקבל", "אנא שנה את שם הקובץ של תמונה(1) בבקשה.")
+					print("שם התמונה לא יתקבל", "אנא שנה את שם הקובץ של תמונה(1) בבקשה.")
 
 			if cover2 == "":
 				print ("Cover2 is not changed")
@@ -386,7 +384,7 @@ def editProduct(id):
 					coverPic2.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(coverPic2.filename)))
 					images = images+","+cover2
 				else:
-					tkMessageBox.showinfo("שם התמונה לא יתקבל", "אנא שנה את שם הקובץ של תמונה(2) בבקשה.")
+					print("שם התמונה לא יתקבל", "אנא שנה את שם הקובץ של תמונה(2) בבקשה.")
 
 			if cover3 == "":
 				print ("Cover3 is not changed")
