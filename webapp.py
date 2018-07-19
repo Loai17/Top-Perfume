@@ -58,7 +58,7 @@ def autoBrand():
 
 	if brands == []:
 		brands = [""]
-		print "Sorry about that. Looks like you don't have any products yet."
+		print ("Sorry about that. Looks like you don't have any products yet.")
 	return brands
 
 
