@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import *
 from flask import session as login_session
 from sqlalchemy.exc import IntegrityError
@@ -8,6 +9,8 @@ import json, ast
 import pyperclip
 import datetime
 import os
+import Tkinter
+import tkMessageBox
 
 # Flask Mail
 from flask_mail import Message, Mail
@@ -342,8 +345,59 @@ def editProduct(id):
 			brand = request.form['brand']
 			price = request.form['price']
 			description = request.form['description']
-			thumbnail = "none"
-			images = "none"
+			thumbnail = request.files['thumb'].filename
+			cover1=request.files['cover1'].filename
+			cover2=request.files['cover2'].filename
+			cover3=request.files['cover3'].filename
+
+			originalCovers = product.images.split(",")
+
+			cover1original = originalCovers[0] 
+			cover2original = originalCovers[1] 
+			cover3original = originalCovers[2] 
+
+			if thumbnail == "":
+				print "Thumbnail is not changed"
+			else:
+				thumbPic=request.files['thumb']
+				if thumbPic and allowed_file(thumbPic.filename):
+					thumbPic.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(thumbPic.filename)))
+					product.thumbnail=thumbnail
+				else:
+					tkMessageBox.showinfo("שם התמונה לא יתקבל", "אנא שנה את שם הקובץ של תמונת החוצה בבקשה.")
+
+			if cover1 == "":
+				print "Cover1 is not changed"
+				images = cover1original
+			else:
+				coverPic1=request.files['cover1']
+				if coverPic1 and allowed_file(coverPic1.filename):
+					coverPic1.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(coverPic1.filename)))
+					images = cover1
+				else:
+					tkMessageBox.showinfo("שם התמונה לא יתקבל", "אנא שנה את שם הקובץ של תמונה(1) בבקשה.")
+
+			if cover2 == "":
+				print "Cover2 is not changed"
+				images = images+","+cover2original
+			else:
+				coverPic2=request.files['cover2']
+				if coverPic2 and allowed_file(coverPic2.filename):
+					coverPic2.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(coverPic2.filename)))
+					images = images+","+cover2
+				else:
+					tkMessageBox.showinfo("שם התמונה לא יתקבל", "אנא שנה את שם הקובץ של תמונה(2) בבקשה.")
+
+			if cover3 == "":
+				print "Cover3 is not changed"
+				images = images+","+cover3original
+			else:
+				coverPic3=request.files['cover3']
+				if coverPic3 and allowed_file(coverPic3.filename):
+					coverPic3.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(coverPic3.filename)))
+					images = images+","+cover3
+				else:
+					tkMessageBox.showinfo("שם התמונה לא יתקבל", "אנא שנה את שם הקובץ של תמונה(3) בבקשה.")
 
 			newBrand = request.form['brandOther']
 
@@ -356,7 +410,6 @@ def editProduct(id):
 			product.gender=gender
 			product.price=price
 			product.description=description
-			product.thumbnail=thumbnail
 			product.images=images
 			session.commit()
 
