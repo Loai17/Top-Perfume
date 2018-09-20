@@ -83,7 +83,7 @@ def home():
 		form.message = request.form['message']
 		
 		if form.name != "" and form.email!= "" and form.message != "":
-			msg = Message("Website Message", sender='TopPerfum1@gmail.com', recipients=['topperfum1@gmail.com'])
+			msg = Message("Top Perfum Message", sender='TopPerfum1@gmail.com', recipients=['topperfum1@gmail.com'])
 			msg.body = """
 			From: %s <%s>
 			Message: %s
