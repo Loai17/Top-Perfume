@@ -13,10 +13,10 @@ import datetime
 # Flask Mail
 from flask_mail import Message, Mail
 #Firebase
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import db
-from firebase_admin import firestore
+# import firebase_admin
+# from firebase_admin import credentials
+# from firebase_admin import db
+# from firebase_admin import firestore
 
 # cred = credentials.Certificate('topperfume-a40e2-firebase-adminsdk-0nov8-ee053590a5.json')
 # default_app = firebase_admin.initialize_app(cred, {
