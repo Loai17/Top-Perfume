@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 from flask import *
 from flask import session as login_session
 from sqlalchemy.exc import IntegrityError
@@ -8,10 +9,54 @@ from forms import ContactForm
 import json, ast
 import pyperclip
 import datetime
-import os
 
 # Flask Mail
 from flask_mail import Message, Mail
+#Firebase
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import db
+from firebase_admin import firestore
+
+# cred = credentials.Certificate('topperfume-a40e2-firebase-adminsdk-0nov8-ee053590a5.json')
+# default_app = firebase_admin.initialize_app(cred, {
+#   'projectId': "topperfume-a40e2",
+# })
+
+# db = firestore.client()
+
+# productName = u"Perfume"
+# gender = u"Men"
+# brand = u"Tommy"
+# description = u"Nice prefume"
+# price = u"130"
+# thumbnail = u""
+# images = u""
+
+# doc_ref = db.collection(u'products').document(u"other")
+# # doc_ref.set({
+# # 	u'name': productName,
+# # 	u'gender': gender,
+# # 	u'brand': brand,
+# # 	u'description': description,
+# # 	u'price':price,
+# # 	u'thumbnail':thumbnail,
+# # 	u'images':images
+# # })
+
+# product1 = Products(productName,price)
+# doc_ref.set(product1.TurnToDictionary())
+
+
+# doc_ref=db.collection(u'products')
+# docs= doc_ref.get()
+
+# for doc in docs:
+# 	# print(u'{} => {}'.format(doc.id, doc.to_dict()))
+# 	docdict = doc.to_dict()
+# 	print(docdict["price"])
+
+# To get the products, make a list of dictionaries of products
 
 mail = Mail()
 
@@ -64,6 +109,8 @@ def autoBrand():
 def home():
 	form = ContactForm()
 	productsList = session.query(ShopItems).all()
+	# productsList = db.collection(u'products').get()
+
 	loadMore = False
 	brands = ast.literal_eval(json.dumps(autoBrand()))
 
