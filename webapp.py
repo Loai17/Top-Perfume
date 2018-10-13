@@ -12,6 +12,14 @@ import datetime
 
 # Flask Mail
 from flask_mail import Message, Mail
+
+import dj_database_url
+
+DATABASES = { 'default': dj_database_url.config(conn_max_age=None) }
+DATABASES['default'] = dj_database_url.config(default='postgres://pulbxlzuwdqapw:6d2db8167c2b4442869a2ffdd9ad5bf048f4b44355ce2fb5b54ef39ee4504190@ec2-54-247-79-32.eu-west-1.compute.amazonaws.com:5432/dfqomvbf10gqne')
+DATABASES['default'] = dj_database_url.parse('postgres://pulbxlzuwdqapw:6d2db8167c2b4442869a2ffdd9ad5bf048f4b44355ce2fb5b54ef39ee4504190@ec2-54-247-79-32.eu-west-1.compute.amazonaws.com:5432/dfqomvbf10gqne', conn_max_age=600)
+
+
 #Firebase
 # import firebase_admin
 # from firebase_admin import credentials
@@ -78,7 +86,7 @@ app.config["MAIL_PASSWORD"] = 'Blackisblack212'
 mail.init_app(app)
 
 # LOCAL
-engine = create_engine('sqlite:///database.db')
+engine = create_engine(os.environ['DATABASE_URL'])
 
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine, autoflush=False)
