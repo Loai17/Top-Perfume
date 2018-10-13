@@ -353,7 +353,7 @@
 		    	{% if products %}
 		    	{% for product in products %}
 			        <tr style="border-bottom: 1px solid black" class='clickable-row' data-href="{{url_for('editProduct', id = product.id)}}">
-			            <td><img style="width: 50px;height: 50px;" src="../static/productsImages/{{product.thumbnail}}"></td> <!--Thumbnail-->
+			            <td><img style="width: 50px;height: 50px;" src="{{product.thumbnail}}"></td> <!--Thumbnail-->
 			            <td>  {{product.name}}  </td> <!--Name-->
 			            {% if product.reviews %}
 <!-- 			            	<script type="text/javascript">

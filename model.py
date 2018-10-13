@@ -37,8 +37,10 @@ class ShopItems(Base):
 	description = Column(String)
 	price = Column(String)
 	thumbnail = Column(String)
-	images = Column(String) #Use a sign to seperate links. -> Comma
-
+	# images = Column(String) #Use a sign to seperate links. -> Comma
+	cover1 = Column(String)
+	cover2 = Column(String)
+	cover3 = Column(String)
 	reviews = relationship('Reviews')
 
 class Admin(Base):
@@ -73,6 +75,6 @@ Base.metadata.create_all(engine)
 # chris = ShopItems(name = "La Vie En Rose",gender="men",brand="Brandd",description="Sexy af",price="200",thumbnail="None",images="none")
 # session.add(chris)
 
-# admin = Admin(name="Rami Naddaf",username="rami",password="123123")
-# session.add(admin)
+admin = Admin(name="Rami Naddaf",username="rami",password="123123")
+session.add(admin)
 session.commit()

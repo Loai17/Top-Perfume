@@ -443,14 +443,15 @@
 			    <input type="number" name="price" placeholder="מחיר" value="{{product.price}}" />
 			    <textarea placeholder="תיאור" name="description" value="{{product.description}}" onkeyup="adjust_textarea(this)"></textarea>
 			    <label for="thumb">תמונת החוצה:</label>
-			    <input type="file" name="thumb"><br>
+			    <input type="text" name="thumb" placeholder="קישור תמונה" value="{{product.thumbnail}}" />
 			   
 			    <label for="cover1">תמונה(1):</label>
-			    <input type="file" name="cover1"><br>
+			    <input type="text" name="cover1" placeholder="קישור תמונה" value="{{product.cover1}}" />
 			    <label for="cover2">תמונה(2):</label>
-			    <input type="file" name="cover2"><br>
+			    <input type="text" name="cover2" placeholder="קישור תמונה" value="{{product.cover2}}" />
 			    <label for="cover3">תמונה(3):</label>
-			    <input type="file" name="cover3"><br>
+			    <input type="text" name="cover3" placeholder="קישור תמונה" value="{{product.cover3}}" />
+
 			    <input type="submit" value="החל שינויים" />
 			  </form>
 			  <br><br>
@@ -499,15 +500,16 @@
 	    <input type="number" name="price" placeholder="מחיר" />
 	    <textarea placeholder="תיאור" name="description" onkeyup="adjust_textarea(this)"></textarea>
 
-		<label for="thumb">תמונת החוצה:</label>
-	    <input type="file" name="thumb"><br>
+	    <label for="thumb">תמונת החוצה:</label>
+	    <input type="text" name="thumb" placeholder="קישור תמונה"/>
 	   
 	    <label for="cover1">תמונה(1):</label>
-	    <input type="file" name="cover1"><br>
+	    <input type="text" name="cover1" placeholder="קישור תמונה"/>
 	    <label for="cover2">תמונה(2):</label>
-	    <input type="file" name="cover2"><br>
+	    <input type="text" name="cover2" placeholder="קישור תמונה"/>
 	    <label for="cover3">תמונה(3):</label>
-	    <input type="file" name="cover3"><br>
+	    <input type="text" name="cover3" placeholder="קישור תמונה"/>
+
 	    <input type="submit" value="הוסף מוצר" />
 	  </form>
 	</div>

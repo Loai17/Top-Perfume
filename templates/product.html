@@ -359,36 +359,42 @@
 							<div class="wrap-slick3-dots"></div>
 							<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 
+							{% if product.cover1 %}
 							<div class="slick3 gallery-lb">
-								<div class="item-slick3" data-thumb="../static/productsImages/{{cover1}}">
+								<div class="item-slick3" data-thumb="{{product.cover1}}">
 									<div class="wrap-pic-w pos-relative">
-										<img src="../static/productsImages/{{cover1}}" alt="IMG-PRODUCT">
+										<img src="{{product.cover1}}" alt="IMG-PRODUCT">
 
-										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="../static/productsImages/{{cover1}}">
+										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="{{product.cover1}}">
 											<i class="fa fa-expand"></i>
 										</a>
 									</div>
 								</div>
+							{% endif %}
 
-								<div class="item-slick3" data-thumb="../static/productsImages/{{cover2}}">
+							{% if product.cover2 %}
+								<div class="item-slick3" data-thumb="{{product.cover2}}">
 									<div class="wrap-pic-w pos-relative">
-										<img src="../static/productsImages/{{cover2}}" alt="IMG-PRODUCT">
+										<img src="{{product.cover2}}" alt="IMG-PRODUCT">
 
-										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="../static/productsImages/{{cover2}}">
+										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="{{product.cover2}}">
 											<i class="fa fa-expand"></i>
 										</a>
 									</div>
 								</div>
+							{% endif %}
 
-								<div class="item-slick3" data-thumb="../static/productsImages/{{cover3}}">
+							{% if product.cover3 %}
+								<div class="item-slick3" data-thumb="{{product.cover3}}">
 									<div class="wrap-pic-w pos-relative">
-										<img src="../static/productsImages/{{cover3}}" alt="IMG-PRODUCT">
+										<img src="{{product.cover3}}" alt="IMG-PRODUCT">
 
-										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="../static/productsImages/{{cover3}}">
+										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="{{product.cover3}}">
 											<i class="fa fa-expand"></i>
 										</a>
 									</div>
 								</div>
+							{% endif %}
 							</div>
 						</div>
 					</div>
@@ -792,7 +798,7 @@
 						<!-- Block2 -->
 						<div class="block2">
 							<div class="block2-pic hov-img0">
-								<img src="../static/productsImages/{{product.thumbnail}}" alt="IMG-PRODUCT">
+								<img src="{{product.thumbnail}}" alt="IMG-PRODUCT">
 
 							<!-- 	<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
 									Quick View

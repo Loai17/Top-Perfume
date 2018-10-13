@@ -211,12 +211,6 @@ def product(id):
 	product = session.query(ShopItems).filter_by(id=id).one()
 	brands = ast.literal_eval(json.dumps(autoBrand()))
 
-	covers = product.images.split(",")
-	
-	cover1 = covers[0]
-	cover2 = covers[1]
-	cover3 = covers[2]
-
 	reviews = session.query(Reviews).filter_by(shopItemID=id).all()
 	starAverage = 0;
 	starSum = 0;
@@ -235,7 +229,7 @@ def product(id):
 			if p.id!=product.id:
 				relatedProducts.append(p)
 
-	return render_template('product.html' , product=product,brands=brands,cover1=cover1,cover2=cover2,cover3=cover3, reviews=reviews,averageRating=starAverage,reviewsNum=len(reviews),relatedProducts=relatedProducts)
+	return render_template('product.html' , product=product,brands=brands, reviews=reviews,averageRating=starAverage,reviewsNum=len(reviews),relatedProducts=relatedProducts)
 
 @app.route('/feedback/<productId>', methods=['GET','POST'])
 def feedback(productId):
@@ -357,32 +351,17 @@ def addProduct():
 			brand = request.form['brand']
 			price = request.form['price']
 			description = request.form['description']
-			thumbnail = request.files['thumb'].filename
-			images = request.files['cover1'].filename+","+request.files['cover2'].filename+","+request.files['cover3'].filename
-
-			product = ShopItems(name=name,gender=gender,brand=brand,description=description,price=price,thumbnail=thumbnail,images=images)
+			thumbnail = request.form['thumb']
+			cover1=request.form['cover1']
+			cover2=request.form['cover2']
+			cover3=request.form['cover3']
+			product = ShopItems(name=name,gender=gender,brand=brand,description=description,price=price,thumbnail=thumbnail,cover1=cover1,cover2=cover2,cover3=cover3)
 			
-			thumbPic=request.files['thumb']
-			coverPic1=request.files['cover1']
-			coverPic2=request.files['cover2']
-			coverPic3=request.files['cover3']
-			
-			if thumbPic and allowed_file(thumbPic.filename) and coverPic1 and allowed_file(coverPic1.filename) and coverPic2 and allowed_file(coverPic2.filename) and coverPic3 and allowed_file(coverPic3.filename):
-				# thumb_name = "1_" + secure_filename(thumb.filename)
-				# cover_name = "1_" + secure_filename(cover.filename)
-				thumbPic.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(thumbPic.filename)))
-				coverPic1.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(coverPic1.filename)))
-				coverPic2.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(coverPic2.filename)))
-				coverPic3.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(coverPic3.filename)))
-
-				session.add(product)
-				session.commit()
-
-				return redirect(url_for('admin'))
-			else:
-				return None
-
-		return render_template('AddEditProduct.html', brands=brands)
+			session.add(product)
+			session.commit()
+			return redirect(url_for('admin'))
+		else:
+			return render_template('AddEditProduct.html', brands=brands)
 	return redirect(url_for('adminSignin'))
 
 
@@ -398,59 +377,10 @@ def editProduct(id):
 			brand = request.form['brand']
 			price = request.form['price']
 			description = request.form['description']
-			thumbnail = request.files['thumb'].filename
-			cover1=request.files['cover1'].filename
-			cover2=request.files['cover2'].filename
-			cover3=request.files['cover3'].filename
-
-			originalCovers = product.images.split(",")
-
-			cover1original = originalCovers[0] 
-			cover2original = originalCovers[1] 
-			cover3original = originalCovers[2] 
-
-			if thumbnail == "":
-				print ("Thumbnail is not changed")
-			else:
-				thumbPic=request.files['thumb']
-				if thumbPic and allowed_file(thumbPic.filename):
-					thumbPic.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(thumbPic.filename)))
-					product.thumbnail=thumbnail
-				else:
-					print("שם התמונה לא יתקבל", "אנא שנה את שם הקובץ של תמונת החוצה בבקשה.")
-
-			if cover1 == "":
-				print ("Cover1 is not changed")
-				images = cover1original
-			else:
-				coverPic1=request.files['cover1']
-				if coverPic1 and allowed_file(coverPic1.filename):
-					coverPic1.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(coverPic1.filename)))
-					images = cover1
-				else:
-					print("שם התמונה לא יתקבל", "אנא שנה את שם הקובץ של תמונה(1) בבקשה.")
-
-			if cover2 == "":
-				print ("Cover2 is not changed")
-				images = images+","+cover2original
-			else:
-				coverPic2=request.files['cover2']
-				if coverPic2 and allowed_file(coverPic2.filename):
-					coverPic2.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(coverPic2.filename)))
-					images = images+","+cover2
-				else:
-					print("שם התמונה לא יתקבל", "אנא שנה את שם הקובץ של תמונה(2) בבקשה.")
-
-			if cover3 == "":
-				print ("Cover3 is not changed")
-				images = images+","+cover3original
-			else:
-				coverPic3=request.files['cover3']
-				if coverPic3 and allowed_file(coverPic3.filename):
-					coverPic3.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(coverPic3.filename)))
-					images = images+","+cover3
-				else:
-					tkMessageBox.showinfo("שם התמונה לא יתקבל", "אנא שנה את שם הקובץ של תמונה(3) בבקשה.")
+			thumbnail = request.form['thumb']
+			cover1=request.form['cover1']
+			cover2=request.form['cover2']
+			cover3=request.form['cover3']
 
 			newBrand = request.form['brandOther']
 
@@ -463,7 +393,10 @@ def editProduct(id):
 			product.gender=gender
 			product.price=price
 			product.description=description
-			product.images=images
+			product.thumbnail=thumbnail
+			product.cover1=cover1
+			product.cover2=cover2
+			product.cover3=cover3
 			session.commit()
 
 			return redirect(url_for('admin'))
