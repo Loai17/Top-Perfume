@@ -19,53 +19,6 @@ DATABASES = { 'default': dj_database_url.config(conn_max_age=None) }
 DATABASES['default'] = dj_database_url.config(default='postgres://pulbxlzuwdqapw:6d2db8167c2b4442869a2ffdd9ad5bf048f4b44355ce2fb5b54ef39ee4504190@ec2-54-247-79-32.eu-west-1.compute.amazonaws.com:5432/dfqomvbf10gqne')
 DATABASES['default'] = dj_database_url.parse('postgres://pulbxlzuwdqapw:6d2db8167c2b4442869a2ffdd9ad5bf048f4b44355ce2fb5b54ef39ee4504190@ec2-54-247-79-32.eu-west-1.compute.amazonaws.com:5432/dfqomvbf10gqne', conn_max_age=600)
 
-
-#Firebase
-# import firebase_admin
-# from firebase_admin import credentials
-# from firebase_admin import db
-# from firebase_admin import firestore
-
-# cred = credentials.Certificate('topperfume-a40e2-firebase-adminsdk-0nov8-ee053590a5.json')
-# default_app = firebase_admin.initialize_app(cred, {
-#   'projectId': "topperfume-a40e2",
-# })
-
-# db = firestore.client()
-
-# productName = u"Perfume"
-# gender = u"Men"
-# brand = u"Tommy"
-# description = u"Nice prefume"
-# price = u"130"
-# thumbnail = u""
-# images = u""
-
-# doc_ref = db.collection(u'products').document(u"other")
-# # doc_ref.set({
-# # 	u'name': productName,
-# # 	u'gender': gender,
-# # 	u'brand': brand,
-# # 	u'description': description,
-# # 	u'price':price,
-# # 	u'thumbnail':thumbnail,
-# # 	u'images':images
-# # })
-
-# product1 = Products(productName,price)
-# doc_ref.set(product1.TurnToDictionary())
-
-
-# doc_ref=db.collection(u'products')
-# docs= doc_ref.get()
-
-# for doc in docs:
-# 	# print(u'{} => {}'.format(doc.id, doc.to_dict()))
-# 	docdict = doc.to_dict()
-# 	print(docdict["price"])
-
-# To get the products, make a list of dictionaries of products
-
 mail = Mail()
 
 UPLOAD_FOLDER = 'static/productsImages'
@@ -225,7 +178,7 @@ def product(id):
 	allProducts= session.query(ShopItems).all()
 	relatedProducts=[]
 	for p in allProducts:
-		if p.brand == product.brand:
+		if p.brand == product.brand or p.gender == product.gender:
 			if p.id!=product.id:
 				relatedProducts.append(p)
 
@@ -348,7 +301,10 @@ def addProduct():
 		if request.method == 'POST':
 			name = request.form['name']
 			gender = request.form['gender']
-			brand = request.form['brand']
+			if request.form['brand']=="other":
+				brand = request.form['brandOther']
+			else:
+				brand = request.form['brand']
 			price = request.form['price']
 			description = request.form['description']
 			thumbnail = request.form['thumb']
