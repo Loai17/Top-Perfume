@@ -37,7 +37,6 @@ class ShopItems(Base):
 	description = Column(String)
 	price = Column(String)
 	thumbnail = Column(String)
-	# images = Column(String) #Use a sign to seperate links. -> Comma
 	cover1 = Column(String)
 	cover2 = Column(String)
 	cover3 = Column(String)

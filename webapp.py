@@ -206,7 +206,7 @@ def search():
 	if request.method == "POST":
 		searchedFor1 = request.form['search']
 		searchedForList = searchedFor1.split()
-		print(searchedForList)
+		print("------------------"+ str(searchedForList)+"-------------------")
 
 		products = session.query(ShopItems).all()
 		productsIdFound = []
@@ -237,15 +237,23 @@ def search():
 				else:
 					print ("found none")
 
-		return redirect(url_for('searchResults',productsIdFound=productsIdFound))
+		IdString = ""
+		for Id in productsIdFound:
+			IdString = IdString+str(Id)+","
+
+		return redirect(url_for('searchResults',productsIdFound=IdString))
 
 @app.route('/results/<productsIdFound>',methods=['GET','POST'])
 def searchResults(productsIdFound):
+	newList = productsIdFound.split(",")
+	print("newList---------------------"+str(newList))
 	productsFound = []
-
-	for idNum in productsIdFound:
-		prodTemp = session.query(ShopItems).filter_by(id=idNum).first()
-		productsFound.append(prodTemp)
+	for idNum in newList:
+		if(idNum!=''):
+			if idNum=='':
+				print("should goooooooooooooooooooooooooooooooooooooooooooooooooooooo")
+			prodTemp = session.query(ShopItems).filter_by(id=int(idNum)).first()
+			productsFound.append(prodTemp)
 
 
 	brands = ast.literal_eval(json.dumps(autoBrand()))
