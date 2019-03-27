@@ -111,13 +111,13 @@
 							</li>
 							<li>
 								<a style="font-size: 23px;" href="{{url_for('shop')}}">חנות</a> 
-<!-- 								<ul class="sub-menu" dir="ltr" style="left: 0px;right: 0px;">
+ 								<!-- <ul class="sub-menu" dir="ltr" style="left: 0px;right: 0px;">
 								{% if brands %}					
 									{% for brand in brands %}
-										<li style="text-align: center;">{{brand}}</li>
+										<li style="text-align: center;"><a href="/">{{brand}}</a></li>
 									{% endfor %}
 								{% endif %}
-								</ul> -->
+								</ul>  -->
 							</li>
 							<li>
 								<a style="font-size: 23px;" href="{{url_for('about')}}">על אודות</a>
@@ -453,7 +453,7 @@
 		<div class="container">
 			<div class="p-b-10" align="center">
 				<h3 class="ltext-103 cl5">
-					מוצרים
+					מותגים
 				</h3>
 			</div>
 
@@ -475,16 +475,16 @@
 				</div>
 				
 				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
+				<!-- 	<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
 						נשים
 					</button>
 
 					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".men">
 						גברים
-					</button>
+					</button> -->
 
 					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
-						כל המוצרים
+						כל המותגים
 					</button>
 
 				</div>
@@ -689,14 +689,14 @@
 				</div>
 			</div>
 
-			{% if products %}
+			{% if brands %}
 				<div class="row isotope-grid">
-				{% for product in products %}
-					<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item {{product.gender}}">
+				{% for brand in brands %}
+					<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item">
 						<!-- Block2 -->
 						<div class="block2">
 							<div class="block2-pic hov-img0">
-								<a href="{{url_for('product' , id=product.id)}}"><img src="{{product.thumbnail}}" alt="IMG-PRODUCT"></a>
+								<a href="{{url_for('search_brands' , name=brand.name)}}"><img src="{{brand.logo}}" alt="IMG-PRODUCT"></a>
 
 							<!-- 	<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
 									תצוגה מהירה
@@ -705,15 +705,15 @@
 
 							<div class="block2-txt flex-w flex-t p-t-14">
 								<div class="block2-txt-child1 flex-col-l ">
-									<a href="{{url_for('product' , id=product.id)}}" style="color: black;" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-											{{product.name}}
+									<a href="{{url_for('search_brands' , name=brand.name)}}" style="color: black;" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+											{{brand.name}}
 										</a>
-										<a href="{{url_for('product' , id=product.id)}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-											{{product.brand}}
+										<a href="{{url_for('search_brands' , name=brand.name)}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+											<!-- {{brand.name}} -->
 										</a>
 
 									<span class="stext-105 cl3">
-										{{product.price}}₪ (nis)
+										
 									</span>
 								</div>
 

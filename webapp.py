@@ -66,23 +66,39 @@ def autoBrand():
 	return brands
 
 
+def brandShow():
+	products = session.query(ShopItems).all()
+	brands=autoBrand()
+	brandShow=[]
+	p=None
+	for brand in brands:
+		for product in products:
+			if product.brand == brand:
+				p=product
+		if p is not None:
+			brandShow.append(p)
+
+	if brandShow == []:
+		brandShow = [""]
+		print ("Sorry about that. Looks like you don't have any products yet.")
+	return brandShow
+
+
 @app.route('/',methods=['GET','POST'])
 def home():
 	form = ContactForm()
-	productsList = session.query(ShopItems).all()
-	# productsList = db.collection(u'products').get()
 
 	loadMore = False
-	brands = ast.literal_eval(json.dumps(autoBrand()))
-
-	products=[]
-	if len(productsList) >= 8:
+	# brands = ast.literal_eval(json.dumps(autoBrand()))
+	brandShowList = session.query(Brands).all() #brandShow()#ast.literal_eval(json.dumps(brandShow()))
+	varBrandShow=[]
+	if len(brandShowList) >= 8:
 		for i in range(8) :
-			products.append(productsList[i])
+			varBrandShow.append(brandShowList[i])
 	else:
-		products = productsList
+		varBrandShow = brandShowList
 
-	if len(products)<len(productsList) :
+	if len(varBrandShow)<len(brandShowList) :
 		loadMore = True
 
 	if request.method == 'POST':
@@ -99,46 +115,47 @@ def home():
 			mail.send(msg)
 			print("message sent")
 
-			return render_template('index.html', success=True, form=form ,number=1, products=products, loadMore=loadMore, brands=brands)
+			return render_template('index.html', success=True, form=form ,number=1, brands=varBrandShow, loadMore=loadMore)
 		else :
-			return render_template('index.html', form=form ,number=1, products=products, loadMore=loadMore, brands=brands)
+			return render_template('index.html', form=form ,number=1, brands=varBrandShow, loadMore=loadMore)
 
 
-	return render_template('index.html', form=form ,number=1, products=products, loadMore=loadMore, brands=brands)
+	return render_template('index.html', form=form ,number=1, brands=varBrandShow, loadMore=loadMore)
 
 
 @app.route('/<number>', methods=['GET','POST'])
 def loadMore(number):
 	form = ContactForm()
-	productsList = session.query(ShopItems).all()
 	loadMore = False
-	brands = ast.literal_eval(json.dumps(autoBrand()))
+
+	brandShowList = session.query(Brands).all() #brandShow()#ast.literal_eval(json.dumps(brandShow()))
+	varBrandShow=[]
 
 	products=[]
-	if len(productsList) >= (8 * int(number)) :
+	if len(brandShowList) >= (8 * int(number)) :
 		for i in range(8* int(number)) :
-			products.append(productsList[i])
+			varBrandShow.append(brandShowList[i])
 	else:
-		products = productsList
+		varBrandShow = brandShowList
 
-	if len(products)<len(productsList) :
+	if len(varBrandShow)<len(brandShowList) :
 		loadMore = True
 
 	if request.method == 'POST':
 		if form.validate() == False:
 			flash('All fields are required.')
-			return render_template('index.html', form=form, number=int(number), products=products, loadMore=loadMore, brands=brands)
+			return render_template('index.html', form=form, number=int(number), brands=varBrandShow, loadMore=loadMore)
 		else:
-			msg = Message("Website Message", sender='contactUs@example.com', recipients=['loai.qubti@gmail.com'])
+			msg = Message("Top Perfum Message", sender='TopPerfum1@gmail.com', recipients=['topperfum1@gmail.com'])
 			msg.body = """
 			From: %s <%s>
 			Message: %s
 			""" % (form.name.data, form.email.data, form.message.data)
 			mail.send(msg)
 
-			return render_template('index.html', success=True, form=form, number=int(number), products=products, loadMore=loadMore, brands=brands)
+			return render_template('index.html', success=True, form=form, number=int(number), brands=varBrandShow, loadMore=loadMore)
 		
-	return render_template('index.html', form=form, number=int(number), products=products, loadMore=loadMore, brands=brands)
+	return render_template('index.html', form=form, number=int(number), brands=varBrandShow, loadMore=loadMore)
 
 @app.route('/subscribe', methods=['POST'])
 def subscribe():
@@ -243,15 +260,38 @@ def search():
 
 		return redirect(url_for('searchResults',productsIdFound=IdString))
 
+@app.route('/by_brand/<name>',methods=['GET','POST'])
+def search_brands(name):
+	# if request.method == "POST":
+	print("------------------ Gathering products by "+ name +" -----------------")
+
+	products = session.query(ShopItems).all()
+	productsIdFound = []
+
+	for product in products:
+		if (product.brand.lower() == name.lower()):
+			print ("found " + product.name + " by brand")
+			if(product.id in productsIdFound):
+				print("It's already in")
+			else:
+				productsIdFound.append(product.id)
+				print("Appended " + product.name)
+		else:
+			print ("found none")
+
+	IdString = ""
+	for Id in productsIdFound:
+		IdString = IdString+str(Id)+","
+
+	return redirect(url_for('searchResults',productsIdFound=IdString))
+
+
 @app.route('/results/<productsIdFound>',methods=['GET','POST'])
 def searchResults(productsIdFound):
 	newList = productsIdFound.split(",")
-	print("newList---------------------"+str(newList))
 	productsFound = []
 	for idNum in newList:
 		if(idNum!=''):
-			if idNum=='':
-				print("should goooooooooooooooooooooooooooooooooooooooooooooooooooooo")
 			prodTemp = session.query(ShopItems).filter_by(id=int(idNum)).first()
 			productsFound.append(prodTemp)
 
@@ -282,6 +322,12 @@ def adminSignin():
 	else:
 		return render_template('adminSignin.html')
 
+def addBrands():
+	brands = autoBrand()
+	for brand in brands:
+		new_brand = Brands(name=brand,logo="")
+		session.add(new_brand)
+	session.commit()
 
 @app.route('/admin-panel-secret-login', methods=['GET','POST'])
 def admin():
@@ -289,14 +335,14 @@ def admin():
 		emails = session.query(Emails).all()
 		products = session.query(ShopItems).all()
 		allReviews = session.query(Reviews).all()
-
+		brands = session.query(Brands).all()
 		# products = []  # list of products
 		# for product in session.query(ShopItems).all():
 		# 	products.append(product.encode('utf-8'))
 
 		if request.method== 'POST':
-			return render_template('admin.html', products=products, emails=emails, reviews=allReviews)
-		return render_template('admin.html' , products=products, emails=emails , reviews=allReviews)
+			return render_template('admin.html', products=products, emails=emails, reviews=allReviews, brands=brands)
+		return render_template('admin.html' , products=products, emails=emails , reviews=allReviews, brands=brands)
 	else:
 		return redirect(url_for('adminSignin'))
 
@@ -368,6 +414,40 @@ def editProduct(id):
 		return render_template('AddEditProduct.html' , edit=True, product=product,brands=brands)
 	return redirect(url_for('adminSignin'))
 
+@app.route('/addBrand', methods=['GET','POST'])
+def addBrand():
+	if 'idAdmin' in login_session:
+		if request.method == 'POST':
+			name = request.form['name']
+			logo = request.form['logo']
+			
+			brand = Brands(name=name,logo=logo)
+			
+			session.add(logo)
+			session.commit()
+			return redirect(url_for('admin'))
+		else:
+			return render_template('AddEditBrand.html',edit=False)
+	return redirect(url_for('adminSignin'))
+
+@app.route('/editBrand/<id>', methods=['GET','POST'])
+def editBrand(id):
+	if 'idAdmin' in login_session:
+		brand = session.query(Brands).filter_by(id=id).one()
+
+		if request.method == 'POST':
+			name = request.form['name']
+			logo = request.form['logo']
+
+			brand.name=name
+			brand.logo=logo
+			session.commit()
+
+			return redirect(url_for('admin'))
+
+		return render_template('AddEditBrand.html', edit=True, brand=brand)
+	return redirect(url_for('adminSignin'))
+
 @app.route('/deleteProduct/<id>', methods=['GET','POST'])
 def deleteProduct(id):
 	if 'idAdmin' in login_session:
@@ -377,6 +457,17 @@ def deleteProduct(id):
 		session.commit()
 
 	return redirect(url_for('admin'))	
+
+@app.route('/deleteBrand/<id>', methods=['GET','POST'])
+def deleteBrand(id):
+	if 'idAdmin' in login_session:
+		brand = session.query(Brands).filter_by(id=id).one()
+
+		session.delete(brand)
+		session.commit()
+
+	return redirect(url_for('admin'))	
+
 
 @app.route('/deleteEmail/<id>', methods=['GET','POST'])
 def deleteEmail(id):

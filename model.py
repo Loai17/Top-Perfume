@@ -19,14 +19,10 @@ class Products():
 	def TurnToDictionary(self):
 		return {'name':self.name,'price':self.price}
 
-
-
 class Emails(Base):
 	__tablename__ = 'emails'
 	id = Column(Integer,primary_key=True)
 	email = Column(String)
-
-
 
 class ShopItems(Base):
 	__tablename__ = 'shopItems'
@@ -41,6 +37,12 @@ class ShopItems(Base):
 	cover2 = Column(String)
 	cover3 = Column(String)
 	reviews = relationship('Reviews')
+
+class Brands(Base):
+	__tablename__ = 'brands'
+	id = Column(Integer,primary_key=True)
+	name = Column(String)
+	logo = Column(String)
 
 class Admin(Base):
 	__tablename__ = 'admin'
