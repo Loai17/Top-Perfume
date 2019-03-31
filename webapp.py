@@ -215,7 +215,6 @@ def feedback(productId):
 		session.add(feedback)
 		session.commit()
 
-		return redirect(url_for('product',id=productId))
 	return redirect(url_for('product',id=productId))
 
 @app.route('/search',methods=['GET','POST'])
@@ -411,8 +410,10 @@ def editProduct(id):
 
 			return redirect(url_for('admin'))
 
-		return render_template('AddEditProduct.html' , edit=True, product=product,brands=brands)
-	return redirect(url_for('adminSignin'))
+		else:
+			return render_template('AddEditProduct.html' , edit=True, product=product,brands=brands)
+	else:
+		return redirect(url_for('adminSignin'))
 
 @app.route('/addBrand', methods=['GET','POST'])
 def addBrand():
@@ -428,7 +429,8 @@ def addBrand():
 			return redirect(url_for('admin'))
 		else:
 			return render_template('AddEditBrand.html',edit=False)
-	return redirect(url_for('adminSignin'))
+	else:
+		return redirect(url_for('adminSignin'))
 
 @app.route('/editBrand/<id>', methods=['GET','POST'])
 def editBrand(id):
@@ -445,8 +447,10 @@ def editBrand(id):
 
 			return redirect(url_for('admin'))
 
-		return render_template('AddEditBrand.html', edit=True, brand=brand)
-	return redirect(url_for('adminSignin'))
+		else:
+			return render_template('AddEditBrand.html', edit=True, brand=brand)
+	else:
+		return redirect(url_for('adminSignin'))
 
 @app.route('/deleteProduct/<id>', methods=['GET','POST'])
 def deleteProduct(id):
