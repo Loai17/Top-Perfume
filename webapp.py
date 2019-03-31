@@ -318,8 +318,8 @@ def adminSignin():
 			return redirect(url_for('admin'))
 		else:
 			return redirect(url_for('adminSignin'))
-	else:
-		return render_template('adminSignin.html')
+	
+	return render_template('adminSignin.html')
 
 def addBrands():
 	brands = autoBrand()
